@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(s) {
+        let resultStr = "";
+
+        for(let i = 0; i < s.length; i++) {
+          const curChar = s[i];
+          let sameCount = 0;
+          
+          for(let j = i; j < s.length; j++) {
+            sameCount++;
+
+            if(curChar !== s[j + 1]) {
+              break;
+            }
+          }
+
+          if(sameCount > 1) {
+            i += sameCount - 1;
+            resultStr += `${s[i]}${sameCount}`;
+          } else {
+            resultStr += s[i];
+          }
+        }
+
+        return resultStr;
+      }
+      
+      let str="KKHSSSSSSSEAAA";
+      console.log(solution(str));
+
+      function solution2(s) {
+        let sameCount = 0;
+        let resultStr = "";
+
+        for(let i = 0; i < s.length; i++) {
+          sameCount++;
+
+          // if(i === s.length - 1) 처리
+          if(i === s.length - 1) {
+            resultStr += sameCount > 1 ? `${s[i]}${sameCount}` : s[i];
+            break;
+          }
+
+          if(s[i] !== s[i + 1]) {
+            resultStr += sameCount > 1 ? `${s[i]}${sameCount}` : s[i];
+            sameCount = 0;
+          }
+        }
+
+        return resultStr;
+      }
+
+      console.log(solution2(str));
+    </script>
+  </body>
+</html>
