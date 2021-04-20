@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { string }
+       * @param { string } s
+       */
+      function solution(s) {
+        const loopLimit = Math.floor(s.length / 2);
+
+        for(let i = 0; i <= loopLimit; i++) {
+          if(s[i].toLowerCase() !== s[s.length - (i + 1)].toLowerCase()) {
+            return "NO";
+          }
+        }
+
+        return "YES";
+      }
+      
+      let str="sgsoGs";
+      console.log(solution(str));
+
+      function solution2(str) {
+        const fixedStr = str.toLowerCase();
+        const reversedStr = fixedStr.split("").reverse().join("");
+
+        return fixedStr === reversedStr ? "YES" : "NO";
+      }
+
+      console.log(solution2(str));
+    </script>
+  </body>
+</html>
