@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { number }
+       * @param { number[] } arr
+       */
+      function solution(arr) {
+        let correctChainCount = 0;
+        let totalScore = 0;
+
+        arr.forEach(isCorrect => {
+          if(isCorrect) {
+            correctChainCount++;
+            totalScore += correctChainCount;
+          } else {
+            correctChainCount = 0;
+          }
+        });
+
+        return totalScore;
+      }
+
+      let arr=[1, 0, 1, 1, 1, 0, 0, 1, 1, 0];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
