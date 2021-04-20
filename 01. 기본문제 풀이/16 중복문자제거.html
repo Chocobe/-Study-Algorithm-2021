@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { string }
+       * @param { string } s
+       */
+      function solution(s) {
+        let result = "";
+        let remainString = s;
+        let maxLength = remainString.length;
+
+        while(remainString.length > 0) {
+          result += remainString[0];
+          
+          const regExpStr = remainString[0];
+          const regExp = new RegExp(regExpStr, "g");
+          
+          remainString = remainString.replace(regExp, "");
+          maxLength = remainString.length;
+        }
+
+        return result;
+      }
+
+      console.log(solution("ksekkset"));
+
+      /**
+       * @returns { string }
+       * @param { string } s2
+       */
+      function solution2(s2) {
+        let result = "";
+
+        for(let i in s2) {
+          if(s2.indexOf(s2[i]) === Number(i)) {
+            result += s2[i];
+          }
+        }
+
+        return result;
+      }
+
+      console.log(solution2("ksekkset"));
+    </script>
+  </body>
+</html>
