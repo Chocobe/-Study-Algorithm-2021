@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(s){
+        const fixedStr = s.toLowerCase();
+        
+        const regExp = /[^a-zA-Z]/g;
+        const extractedStr = fixedStr.replace(regExp, "");        
+        const loopLimit = Math.floor(extractedStr.length / 2);
+
+        let isValid = true;
+
+        for(let i = 0; i < loopLimit; i++) {
+          if(extractedStr[i] !== extractedStr[extractedStr.length - (i + 1)]) {
+            return "NO";
+          }
+        }
+
+        return "YES";
+      }
+      
+      let str="found7, time: study; Yduts; emit, 7Dnuof";
+      console.log(solution(str));
+
+      function solution2(str) {
+        const lowerCaseStr = str.toLowerCase();
+        const regExp = /[^a-z]/g;
+        const extractedStr = lowerCaseStr.replace(regExp, "");
+
+        return extractedStr.split("").reverse().join("") === extractedStr ? "YES" : "NO";
+      }
+
+      console.log(solution2(str));
+    </script>
+  </body>
+</html>
