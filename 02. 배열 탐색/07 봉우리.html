@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function compareTop(arr, x, y) {
+        if(y === 0 || arr[y - 1].length <= x) {
+          return true;
+        }
+
+        const topHeight = arr[y - 1][x];
+
+        return arr[y][x] > topHeight;
+      }
+
+      function compareLeft(arr, x, y) {
+        if(x === 0) {
+          return true;
+        }
+
+        const leftHeight = arr[y][x - 1];
+
+        return arr[y][x] > leftHeight;
+      }
+
+      function compareBottom(arr, x, y) {
+        if(y >= arr.length - 1 || (arr[y + 1] && arr[y + 1].length <= y)) {
+          return true;
+        }
+
+        const bottomHeight = arr[y + 1][x];
+
+        return arr[y][x] > bottomHeight;
+      }
+
+      function compareRight(arr, x, y) {
+        if(x >= arr[y].length - 1) {
+          return true;
+        }
+
+        const rightHeight = arr[y][x + 1];
+
+        return arr[y][x] > rightHeight;
+      }
+      
+      function solution(arr) {
+        let mountainCount = 0;
+        
+        for(let y = 0; y < arr.length; y++) {
+          for(let x = 0; x < arr[y].length; x++) {
+            if(!compareTop(arr, x, y)) {
+              continue;
+            }
+
+            if(!compareLeft(arr, x, y)) {
+              continue;
+            }
+            
+            if(!compareBottom(arr, x, y)) {
+              continue;
+            }
+
+            if(!compareRight(arr, x, y)) {
+              continue;
+            }
+
+            mountainCount++;
+          }
+        }
+
+        return mountainCount;
+      }
+
+      let arr=[
+        [5, 3, 7, 2, 3], 
+        [3, 7, 1, 6, 1],
+        [7, 2, 5, 3, 4],
+        [4, 3, 6, 4, 1],
+        [8, 7, 3, 5, 2]
+      ];
+      console.log(solution(arr));
+
+      function solutionSample(arr) {
+        let mountainCount = 0;
+        
+        const searchPosX = [0, -1, 0, 1];
+        const searchPosY = [-1, 0, 1, 0];
+
+        for(let row = 0; row < arr.length; row++) {
+          for(let col = 0; col < arr[row].length; col++) {
+            let isHighest = true;
+            
+            // 비교 루프
+            for(let searchIdx = 0; searchIdx < searchPosX.length; searchIdx++) {
+              const targetPosX = col + searchPosX[searchIdx];
+              const targetPosY = row + searchPosY[searchIdx];
+
+              if(targetPosX < 0 || targetPosX >= arr[row].length || targetPosY < 0 || targetPosY >= arr[row].length) {
+                continue;
+              }
+
+              if(arr[row][col] <= arr[targetPosY][targetPosX]) {
+                isHighest = false;
+                break;
+              }
+            }
+
+            if(isHighest) {
+              mountainCount++;
+            }
+          }
+        }
+
+        return mountainCount;
+      }
+
+      console.log(solutionSample(arr));
+    </script>
+  </body>
+</html>
