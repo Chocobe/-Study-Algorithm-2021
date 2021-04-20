@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      const criminalCount = 2;
+
+      function calcSumOfOthers(arr, exceptedIndexList) {
+        let sumOfOthers = 0;
+
+        for(const curIndex in arr) {
+          let isValidIndex = true;
+          
+          for(let i = 0; i < exceptedIndexList.length; i++) {            
+            if(curIndex == exceptedIndexList[i]) {
+              isValidIndex = false;
+              // break;
+            }
+          }
+          
+          if(isValidIndex) {
+            sumOfOthers += arr[curIndex];
+          }
+        }
+
+        return sumOfOthers;
+      }
+      
+      function solution(arr) {
+        const result = [];
+        const limitLength = arr.length - criminalCount;
+        
+        for(let i = 0; i <= limitLength; i++) {          
+          for(let j = i + 1; j < arr.length; j++) {            
+            const exceptedIndexList = [i, j];  
+            const sumOfOthers = calcSumOfOthers(arr, exceptedIndexList);
+
+            if(sumOfOthers === 100) {
+              const clonedArr = arr.slice();
+              clonedArr.splice(i, 1);
+              clonedArr.splice(j - 1, 1);
+              result.push(clonedArr);
+            }
+          }
+        }
+
+        return result;
+      }
+      
+      let arr=[20, 7, 23, 19, 10, 15, 25, 8, 13];
+      // console.log(solution(arr));
+
+      //
+
+      function solutionSample(arr) {
+        const resultArr = [];
+        let sum = arr.reduce((a, b) => a + b, 0);
+
+        for(let i = 0; i < arr.length - 1; i++) {
+          for(let j = i + 1; j < arr.length; j++) {
+            if(sum - (arr[i] + arr[j]) === 100) {
+              const result = arr.slice();
+              result.splice(i, 1);
+              result.splice(j - 1, 1);
+
+              resultArr.push(result);
+            }
+          }
+        }
+
+        return resultArr;
+      }
+
+      console.log("sample: ", solutionSample(arr));
+    </script>
+  </body>
+</html>
