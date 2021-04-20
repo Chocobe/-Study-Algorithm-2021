@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  <body>
+
+    <script>
+      /**
+       * @returns { string }
+       * @param { string } s
+       */
+      function solution(s){
+        let result = "";
+        const sArr = s.split("");
+
+        sArr.forEach(curChar => {
+          if(curChar === curChar.toUpperCase()) {
+            result += curChar.toLowerCase();
+          } else {
+            result += curChar.toUpperCase();
+          }
+        });
+
+        return result;
+      }
+
+      console.log(solution("StuDY"));
+    </script>
+  </body>
+</html>
