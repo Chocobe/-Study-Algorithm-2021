@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(arr) {
+        if(arr.length < 1) {
+          return -9999;
+        }
+
+        let minOdd = Number.MAX_SAFE_INTEGER;
+        let sumOfOdd = 0;
+
+        for(let i = 0; i < arr.length; i++) {
+          if(arr[i] % 2 === 0) {
+            continue;
+          }
+
+          sumOfOdd += arr[i];
+
+          if(minOdd > arr[i]) {
+            minOdd = arr[i];
+          }
+        }
+
+        return `홀수의 합: ${sumOfOdd}\n홀수의 최소값: ${minOdd}`;
+      }
+      
+      arr=[12, 77, 38, 41, 53, 92, 85];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
