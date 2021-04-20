@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { number }
+       * @param { number[][] } arr
+       */
+      function getMaxSumOfHorizontal(arr) {
+        let maxSum = 0;
+
+        for(let row = 0; row < arr.length; row++) {
+          let curSum = 0;
+
+          for(let col = 0; col < arr.length; col++) {
+            curSum += arr[row][col];
+          }
+
+          if(curSum > maxSum) {
+            maxSum = curSum;
+          }
+        }
+        
+        // arr.forEach(row => {
+        //   let curSum = 0;
+
+        //   row.forEach(col => {
+        //     curSum += col;
+        //   });
+
+        //   if(curSum > maxSum) {
+        //     maxSum = curSum;
+        //   }
+        // });
+
+        return maxSum;
+      }
+
+      /**
+       * @returns { number }
+       * @param { number[][] } arr
+       */
+      function getMaxSumOfVertical(arr) {
+        let maxSum = 0;
+
+        for(let col = 0; col < arr.length; col++) {
+          let curSum = 0;
+
+          for(let row = 0; row < arr.length; row++) {
+            curSum = arr[row][col];
+          }
+
+          if(curSum > maxSum) {
+            maxSum = curSum;
+          }
+        }
+        
+        // for(let colIdx in arr[0]) {
+        //   let curSum = 0;
+          
+        //   arr.forEach(row => {
+        //     curSum += row[colIdx];
+        //   });
+
+        //   if(curSum > maxSum) {
+        //     maxSum = curSum;
+        //   }
+        // }
+        
+        return maxSum;
+      }
+
+      /**
+       * @returns { number }
+       * @param { number[][] } arr
+       */
+      function getMaxSumOfDiagonal(arr) {
+        console.log("arr: ", arr);
+        let sumOfForward = 0;
+        let sumOfReverse = 0;
+        
+        for(let i = 0; i < arr.length; i++) {
+          sumOfForward += arr[i][i];
+          sumOfReverse += arr[arr.length - (i + 1)][i];
+        }
+        
+        return sumOfForward > sumOfReverse ? sumOfForward : sumOfReverse;
+      }
+      
+      /**
+       * @return { number }
+       * @param { number[][] } arr
+       */
+      function solution(arr) {
+        return Math.max(
+          getMaxSumOfHorizontal(arr), 
+          getMaxSumOfVertical(arr), 
+          getMaxSumOfDiagonal(arr)
+        );
+      }
+
+      let arr=[[10, 13, 10, 12, 15], 
+                [12, 39, 30, 23, 11],
+                [11, 25, 50, 53, 15],
+                [19, 27, 29, 37, 27],
+                [19, 13, 30, 13, 19]];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
