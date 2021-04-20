@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(str) {
+        const regExp = /\d/g;
+        const digitList = str.match(regExp);
+        
+        const result = Number(digitList.join(""));
+
+        return result ? result : 0;
+      }
+      
+      let str="g0en2T0s8eSoft";
+      console.log(solution(str));
+    </script>
+  </body>
+</html>
