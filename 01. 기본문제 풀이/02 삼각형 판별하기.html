@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(a, b, c){
+        let maxValue = a > b ? a : b;
+        let sumOfOthers = a > b ? b : a;
+
+        if(maxValue < c) {
+          maxValue = c;
+          sumOfOthers += b;
+        } else {
+          sumOfOthers += c;
+        }
+
+        return maxValue < sumOfOthers ? "YES" : "NO";
+      }
+
+      console.log(solution(6, 7, 11));
+
+      function solutionSample(a, b, c) {
+        let max = 0;
+        let sum = a + b + c;
+
+        if(a > b) {
+          max = a;
+        } else {
+          max = b;
+        }
+
+        if(c > max) {
+          max = c;
+        }
+
+        if((sum - max) > max) {
+          return "YES";
+        } else {
+          return "NO";
+        }
+      }
+
+      console.log(solutionSample(6, 7, 11));
+    </script>
+  </body>
+</html>
