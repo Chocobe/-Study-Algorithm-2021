@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { number[] }
+       * @param { number[] } arr
+       */
+      function solution(arr) {
+        let maxHeight = arr[0];
+        let visableCount = 1;
+
+        arr.forEach(curHeight => {
+          if(maxHeight < curHeight) {
+            maxHeight = curHeight;
+            visableCount++;
+          }
+        });
+
+        return visableCount;
+      }
+
+      let arr=[130, 135, 148, 140, 145, 150, 150, 153];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
