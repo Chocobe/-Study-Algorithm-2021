@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { string[] }
+       * @param { string[] } s
+       */
+      function solution(s){
+        const resultArr = [];
+
+        s.forEach((curString, curIdx) => {
+          if(s.indexOf(curString) === curIdx) {
+            resultArr.push(curString);
+          }
+        });
+
+        return resultArr;
+      }
+
+      let str=["good", "time", "good", "time", "student"];
+      console.log(solution(str));
+
+      /**
+       * @returns { string[] }
+       * @param { string[] } str
+       */
+      function solution2(str) {
+        return str.filter((curString, curIdx, originArr) => {
+          return originArr.indexOf(curString) === curIdx;
+        });
+      }
+
+      console.log("solution2(): ", solution2(str));
+    </script>
+  </body>
+</html>
