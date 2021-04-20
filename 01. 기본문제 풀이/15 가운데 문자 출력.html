@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { string }
+       * @param { string } s
+       */
+      function solution(s) {
+        if(s.length === 0) {
+          return "데이터를 입력해 주세요";
+        }
+
+        let endIdx = Math.floor(s.length / 2);
+        let startIdx = (s.length % 2) === 0 ? (endIdx - 1) : endIdx;
+
+        return s.substring(startIdx, endIdx + 1);
+      }
+      console.log(solution("good"));
+    </script>
+  </body>
+</html>
