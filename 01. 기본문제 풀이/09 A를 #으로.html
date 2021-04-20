@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(s){
+        return s.replace(/A/g, "#");
+      }
+      
+      let str="BANANA";
+      console.log("solution(): ", solution(str));
+    </script>
+  </body>
+</html>
+
+
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { string }
+       * @param { string } s
+       */
+      function solution2(s){
+        const sArr = s.split("");
+        const result = sArr.reduce((result, letter) => {
+          if(letter === "A") {
+            return result + "#";
+          }
+
+          return result + letter;
+        }, "");
+
+        return result;
+      }
+      
+      let str2="BANANA";
+      console.log("solution2(): ", solution2(str2));
+    </script>
+  </body>
+</html>
