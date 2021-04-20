@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { string[] }
+       * @param { number[] } a
+       * @param { number[] } b
+       */
+      function solution(a, b) {
+        const gameCount = a.length > b.length ? b.length : a.length;
+        const result = [];
+
+        for(let i = 0; i < gameCount; i++) {
+          const absoluteDiff = Math.abs(a[i] - b[i]);
+
+          switch(absoluteDiff) {
+            case 0: {
+              result.push("D");
+              break;
+            }
+
+            case 1: {
+              if(a[i] - b[i] < 0) {
+                result.push("B");
+              } else {
+                result.push("A");
+              }
+
+              break;
+            }
+
+            case 2: {
+              if(a[i] - b[i] < 0) {
+                result.push("A");
+              } else {
+                result.push("B");
+              }
+
+              break;
+            }
+          }
+        }
+
+        return result;
+      }
+
+      let a=[2, 3, 3, 1, 3];
+      let b=[1, 1, 2, 2, 3];
+      console.log(solution(a, b));
+    </script>
+  </body>
+</html>
