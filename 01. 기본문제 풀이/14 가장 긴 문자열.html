@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { string }
+       * @param { string[] } s
+       */
+      function solution(s) {
+        let maxLengthIdx = 0;
+        let maxLength = s[0].length;
+
+        s.forEach((curValue, idx) => {
+          if(maxLength < curValue.length) {
+            maxLengthIdx = idx;
+            maxLength = curValue.length;
+          }
+        });
+
+        return s[maxLengthIdx];
+      }
+      
+      let str=["teacher", "time", "student", "beautiful", "good"];
+      console.log(solution(str));
+    </script>
+  </body>
+</html>
