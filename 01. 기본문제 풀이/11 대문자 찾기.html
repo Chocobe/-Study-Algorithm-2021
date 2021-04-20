@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { number }
+       * @param { string } s
+       */
+      function solution(s){
+        return s.match(/[A-Z]/g).length;
+      }
+
+      let str="KoreaTimeGood";
+      console.log(solution(str));
+
+      /**
+       * @returns { number }
+       * @param { string } s2
+       */
+      function solution2(s2) {
+        let upperCounter = 0;
+        for(let curChar of s2) {
+          if(curChar === curChar.toUpperCase()) {
+            upperCounter++;
+          }
+        }
+
+        return upperCounter;
+      }
+
+      let str2 = "KoreaTimeGood";
+      console.log(solution2(str2));
+    </script>
+  </body>
+</html>
