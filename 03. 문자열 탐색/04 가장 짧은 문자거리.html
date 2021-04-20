@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  
+  <body>
+    <script>
+      /**
+       * @returns { number[] }
+       * @param { string } s
+       * @param { string } t
+       */
+      function getDiffList(s, t) {
+        const diffList = [];
+        
+        for(let i = 0; i < s.length; i++) {
+          const curChar = s[i];
+          let diff = 0;
+          let isFinished = false;
+
+          if(curChar === t) {
+            diffList[i] = 0;
+            continue;
+          }
+
+          
+          for(let j = i + 1; j < s.length; j++) {
+            diff++;
+
+            if(s[j] === t) {
+              isFinished = true;
+              diffList[i] = diff;
+              break;
+            }
+          }
+
+          if(!isFinished) {
+            diffList.push(Number.MAX_SAFE_INTEGER);
+          }
+        }
+
+        return diffList;
+      }
+      
+      /**
+       * @returns { number[] }
+       * @param { string } s
+       * @param { string } t
+       */
+      function solution(s, t){
+        const resultDiffList = [];
+        
+        const forwardDiffList = getDiffList(s, t);
+        let reverseDiffList = getDiffList(s.split("").reverse().join(""), t);
+        reverseDiffList = reverseDiffList.reverse();
+
+        for(let i = 0; i < forwardDiffList.length; i++) {
+          if(forwardDiffList[i] < reverseDiffList[i]) {
+            resultDiffList.push(forwardDiffList[i]);
+          } else {
+            resultDiffList.push(reverseDiffList[i]);
+          }
+        }
+
+        return resultDiffList;
+      }
+      
+      let str="teachermode";
+      console.log(solution(str, 'e'));
+    </script>
+  </body>
+</html>
