@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function isPrime(curValue) {
+        let isPrimeNumber = true;
+
+        if(curValue === 1) {
+          isPrimeNumber = false;
+        }
+
+        for(let i = 2; i <= Math.floor(curValue / 2); i++) {
+          if(curValue % i === 0) {
+            isPrimeNumber = false;
+            break;
+          }
+        }
+
+        return isPrimeNumber;
+      }
+
+      /**
+       * @returns { string }
+       * @param { number[] } arr
+       */
+      function solution(arr){
+        let primeNumList = [];
+
+        const parsedArr = arr.map(curValue => {
+          const parsedValue = curValue.toString().split("").reverse().join("");
+          return Number(parsedValue);
+        });
+
+        parsedArr.forEach(curValue => {
+          let isPrimeNumber = isPrime(curValue);
+
+          if(isPrimeNumber) {
+            primeNumList.push(curValue);
+          }
+        });
+
+        return primeNumList;
+      }
+      
+      let arr=[32, 55, 62, 20, 250, 370, 200, 30, 100, 91];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
+
+
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function isPrime2(num){
+        return true;
+      }
+      function solution2(arr){
+      }
+      
+      console.log(solution2(arr));
+    </script>
+  </body>
+</html>
