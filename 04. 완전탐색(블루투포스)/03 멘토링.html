@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { number }
+       * @param { number[][] } arr
+       */
+      function solution(arr) {
+        const resultList = [];
+
+        for(let myNum = 1; myNum <= arr[0].length; myNum++) {
+          const amIHigher = Array.from({length: arr[0].length}, () => true);
+
+          for(let examNum = 0; examNum < arr.length; examNum++) {
+            let myRank = Number.MAX_SAFE_INTEGER;
+            
+            for(let rank = 0; rank < arr[examNum].length; rank++) {              
+              const compareStudentNum = arr[examNum][rank];
+
+              if(compareStudentNum === myNum) {
+                myRank = rank;
+                amIHigher[compareStudentNum - 1] = false;
+                continue;
+              }
+
+              if(rank < myRank) {
+                amIHigher[compareStudentNum - 1] = false;
+              }
+            }
+          }
+
+          for(let i = 0; i < amIHigher.length; i++) {
+            if(amIHigher[i]) {
+              const msg = `(${myNum}, ${i + 1})`;
+              resultList.push(msg);
+            }
+          }
+        }
+
+        return resultList.length;
+      }
+      
+      let arr = [
+        [3, 4, 1, 2],
+        [4, 3, 2, 1],
+        [3, 1, 4, 2]
+      ];
+
+      console.log(solution(arr));
+
+      function solutionSample(arr) {
+        const resultList = [];
+        
+        for(let i = 0; i < arr[0].length; i++) {
+          for(let j = 0; j < arr[0].length; j++) {
+            let cnt = 0;
+
+            for(let k = 0; k < arr.length; k++) {
+              let pi = 0;
+              let pj = 0;
+              
+              for(let s = 0; s < arr[k].length; s++) {
+                if(arr[k][s] === i + 1) {
+                  pi = s;
+                }
+
+                if(arr[k][s] === j + 1) {
+                  pj = s;
+                }
+              }
+
+              if(pi < pj) {
+                cnt++;
+              }
+            }
+
+            if(cnt === arr.length) {
+              resultList.push(`(${i + 1}, ${j + 1})`);
+            }
+          }
+        }
+
+        return resultList;
+      }
+
+      console.log(solutionSample(arr));
+    </script>
+  </body>
+</html>
