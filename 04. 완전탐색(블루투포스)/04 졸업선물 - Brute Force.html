@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { number }
+       * @param { number } m
+       * @param { number[][] } productList
+       */
+      function solution(m, productList){
+        let maxCount = 0;
+
+        const sortedProductList = productList.sort((lhs, rhs) => {
+          return (lhs[0] + lhs[1]) - (rhs[0] + rhs[1]);
+        });
+
+        for(let discountTargetIdx in sortedProductList) {
+          let curCount = 0;
+          let remainMoney = m - (
+            (sortedProductList[discountTargetIdx][0] / 2) + sortedProductList[discountTargetIdx][1]
+          );
+
+          for(let curProductIdx in sortedProductList) {
+            if(discountTargetIdx === curProductIdx) {
+              continue;
+            }
+
+            const curProduct = sortedProductList[curProductIdx];
+            const curPrice = curProduct[0] + curProduct[1];
+
+            if(curPrice <= remainMoney) {
+              curCount++;
+              remainMoney += curPrice;
+            }
+          }
+
+          if(curCount > maxCount) {
+            maxCount = curCount;
+          }
+        }
+
+        return maxCount;
+      }
+      
+      let arr=[
+        [6, 6],
+        [2, 2],
+        [4, 3],
+        [4, 5],
+        [10, 3]
+      ];
+      console.log(solution(28, arr));
+    </script>
+  </body>
+</html>
