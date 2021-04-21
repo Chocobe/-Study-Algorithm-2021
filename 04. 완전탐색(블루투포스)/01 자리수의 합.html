@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(n, arr){
+        let resultSumOfDigit = 0;
+        let resultOriginValue = 0;
+
+        for(const curValue of arr) {
+          let sumOfDigit = 0;
+          let processingValue = curValue;
+
+          while(processingValue) {
+            sumOfDigit += processingValue % 10;
+            processingValue = Math.floor(processingValue / 10);
+          }
+
+          if(resultSumOfDigit < sumOfDigit) {
+            resultSumOfDigit = sumOfDigit;
+            resultOriginValue = curValue;
+          } else if(resultSumOfDigit === sumOfDigit) {
+            resultOriginValue = resultOriginValue < curValue ? curValue : resultOriginValue;
+          }
+        }
+
+        return resultOriginValue;
+      }
+      
+      let arr=[128, 460, 603, 40, 521, 137, 1234];
+      console.log(solution(7, arr));
+      console.log("");
+    </script>
+  </body>
+</html>
+
+
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution2(n, arr){
+        let resultSumOfDigit = 0;
+        let resultOriginValue = 0;
+
+        for(const curValue of arr) {
+          const sumOfDigit = curValue.toString().split("").reduce((result, curDigit) => {
+            return result + Number(curDigit);
+          }, 0);
+
+          if(resultSumOfDigit < sumOfDigit) {
+            resultSumOfDigit = sumOfDigit;
+            resultOriginValue = curValue;
+          } else if(resultSumOfDigit === sumOfDigit) {
+            resultOriginValue = resultSumOfDigit < curValue ? curValue : resultSumOfDigit;
+          }
+        }
+
+        return resultOriginValue;
+      }
+      
+      console.log(solution2(7, arr));
+    </script>
+  </body>
+</html>
