@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(arr1, arr2){
+        const sortedArr1 = arr1.sort((lhs, rhs) => {
+          return lhs - rhs;
+        });
+
+        const sortedArr2 = arr2.sort((lhs, rhs) => {
+          return lhs - rhs;
+        });
+
+        const resultArr = [];
+
+        let pointer1 = 0;
+        let pointer2 = 0;
+
+        while(pointer1 < arr1.length && pointer2 < arr2.length) {
+          if(arr1[pointer1] === arr2[pointer2]) {
+            resultArr.push(arr1[pointer1]);
+            pointer1++;
+            pointer2++;
+
+            continue;
+          }
+
+          if(arr1[pointer1] > arr2[pointer2]) {
+            pointer2++;
+            
+            continue;
+          }
+
+          if(arr1[pointer1] < arr2[pointer2]) {
+            pointer1++;
+            
+            continue;
+          }
+        }
+
+        return resultArr;
+      }
+      
+      let a=[1, 3, 9, 5, 2];
+      let b=[3, 2, 5, 7, 8];
+      console.log(solution(a, b));
+    </script>
+  </body>
+</html>
