@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @returns { number[] }
+       * @param { number[] } arr1
+       * @param { number[] } arr2
+       */
+      function solution(arr1, arr2){
+        const resultArr = [];
+
+        let pointer_01 = 0;
+        let pointer_02 = 0;
+
+        while(pointer_01 < arr1.length && pointer_02 < arr2.length) {
+          if(arr1[pointer_01] < arr2[pointer_02]) {
+            resultArr.push(arr1[pointer_01]);
+            pointer_01++;
+          } else {
+            resultArr.push(arr2[pointer_02]);
+            pointer_02++;
+          }
+        }
+
+        while(pointer_01 < arr1.length) {
+          resultArr.push(arr1[pointer_01]);
+          pointer_01++;
+        }
+
+        while(pointer_02 < arr2.length) {
+          resultArr.push(arr2[pointer_02]);
+          pointer_02++;
+        }
+
+        return resultArr;
+      }
+      
+      let a=[1, 3, 5];
+      let b=[2, 3, 6, 7, 9];
+      console.log(solution(a, b));
+    </script>
+  </body>
+</html>
