@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(k, arr) {
+        let maxSum = 0;
+        let curSum = 0;
+
+        let end = 0;
+
+        while(end < k) {
+          curSum += arr[end];
+          end++;
+        }
+        maxSum = curSum;
+        
+        for(let start = 0; start <= (arr.length - k); start++) {
+          curSum -= arr[start];
+          curSum += arr[end];
+          end++;
+
+          if(curSum > maxSum) {
+            maxSum = curSum;
+          }
+        }
+
+        return maxSum;
+      }
+      
+      let a=[12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
+      // console.log(solution(3, a));
+
+      function solution2(k, arr) {
+        let maxSum = 0;
+        let curSum = 0;
+
+        for(let i = 0; i < k; i++) {
+          curSum += arr[i];
+        }
+
+        maxSum = curSum;
+
+        for(let i = k; i < arr.length; i++) {
+          curSum += arr[i];
+          curSum -= arr[i - k];
+
+          if(curSum > maxSum) {
+            maxSum = curSum;
+          }
+        }
+
+        return maxSum;
+      }
+      console.log(solution2(3, a));
+    </script>
+  </body>
+</html>
