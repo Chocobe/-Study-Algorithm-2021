@@ -494,3 +494,56 @@ let end = 0;
 
 
 
+##### 02-03
+## 02-03. ``슬라이딩 윈도우 (Sliding Window)``
+
+``슬라이딩 윈도우 (Sliding Window)`` 알고리즘은 ``배열`` 또는 ``리스트`` 에서 ``일정범위의 연산값`` 을 비교할 때 유용합니다.
+
+비교할 연산은 ``일정한 범위`` 를 가지므로, 연산 범위를 이동시키는 방식의 알고리즘 입니다.
+
+```javascript
+const arr = [1, 2, 3, 4];
+const range = 3;
+
+let maxSum = 0;
+let curSum = 0;
+
+// 1. 일정범위 (range) 의 합을 먼저 구합니다.
+// (첫번째 범위의 연산값)
+for(let i = 0; i < range; i++) {
+  curSum += arr[i];
+}
+
+maxSum = curSum;
+
+// 2. start 값이 (arr.length - range) 이하까지 반복합니다.
+// 시작 index값을 증가 시키며, 시작 index를 기준으로 ``range`` 만큼 ``연산`` 하게 됩니다.
+// ``end`` 를 기준으로 Sliding Window 알고리즘이 진행 됩니다.
+for(let end = range; end < arr.length; end++) {
+  curSum += arr[end];
+  curSum -= arr[end - range];
+
+  if(curSum > maxSum) {
+    maxSum = curSum
+  }
+}
+
+console.log("maxSum: ", maxSum);
+```
+
+<br/>
+
+<img src="./assets/03_슬라이딩%20윈도우_01.png"><br/>
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<br/><br/>
+
+
+
+##### 02-04
+## 02-04. 
