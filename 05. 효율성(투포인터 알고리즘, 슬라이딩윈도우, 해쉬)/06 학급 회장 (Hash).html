@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(s) {
+        let voteMap = new Map();
+
+        for(let name of s) {
+          if(voteMap.has(name)) {
+            voteMap.set(name, voteMap.get(name) + 1);
+          } else {
+            voteMap.set(name, 1);
+          }
+        }
+
+        let maxCount = 0;
+        let maxName = "";
+
+        for(let [name, count] of voteMap) {
+          if(count > maxCount) {
+            maxCount = count;
+            maxName = name;
+          }
+        }
+
+        return maxName;
+      }
+
+      let str="BACBACCACCBDEDE";
+      console.log(solution(str));
+    </script>
+  </body>
+</html>
