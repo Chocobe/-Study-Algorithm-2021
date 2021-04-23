@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(str1, str2) {
+        if(str1.length !== str2.length) {
+          return "NO";
+        }
+
+        const strMap1 = new Map();
+        const strMap2 = new Map();
+
+        for(let i = 0; i < str1.length; i++) {
+          if(strMap1.has(str1[i])) {
+            strMap1.set(str1[i], strMap1.get(str1[i]) + 1);
+          } else {
+            strMap1.set(str1[i], 1);
+          }
+
+          if(strMap2.has(str2[i])) {
+            strMap2.set(str2[i], strMap2.get(str2[i]) + 1);
+          } else {
+            strMap2.set(str2[i], 1);
+          }
+        }
+
+        for (let [key, value] of strMap1) {
+          if(value !== strMap2.get(key)) {
+            return "NO";
+          }
+        }
+
+        return "YES";
+      }
+      
+      let a="AbaAeCe";
+      let b="baeeACA";
+      // console.log(solution(a, b));
+
+      function solution2(str1, str2) {
+        if(str1.length !== str2.length) {
+          return "NO";
+        }
+        
+        const strMap1 = new Map();
+        
+        for(let curChar of str1) {
+          if(strMap1.has(curChar)) {
+            strMap1.set(curChar, strMap1.get(curChar) + 1);
+          } else {
+            strMap1.set(curChar, 1);
+          }
+        }
+
+        for(let targetChar of str2) {
+          if(!strMap1.has(targetChar) || strMap1.get(targetChar) === 0) {
+            return "NO";
+          } else {
+            strMap1.set(targetChar, strMap1.get(targetChar) - 1);
+          }
+        }
+
+        return "YES";
+      }
+
+      console.log(solution2(a, b));
+    </script>
+  </body>
+</html>
