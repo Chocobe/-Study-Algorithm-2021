@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  
+  <body>
+    <script>
+            function compareMaps(sourceMap, targetMap) {
+        for(let key of targetMap.keys()) {
+          if(sourceMap.get(key) !== targetMap.get(key)) {
+            return false;
+          }
+        }
+
+        return true;
+      }
+      
+      function solution(s, t) {        
+        let anagramCount = 0;
+        
+        const sourceMap = new Map();
+        const targetMap = new Map();
+
+        // targetMap 초기화
+        for(let i = 0; i < t.length; i++) {
+          if(targetMap.has(t[i])) {
+            targetMap.set(t[i], targetMap.get(t[i] + 1));
+          } else {
+            targetMap.set(t[i], 1);
+          }
+        }
+
+        // sourceMap 초기화
+        for(let i = 0; i < t.length - 1; i++) {
+          if(sourceMap.has(s[i])) {
+            sourceMap.set(s[i], sourceMap.get(s[i] + 1));
+          } else {
+            sourceMap.set(s[i], 1);
+          }
+        }
+
+        // Sliding Window 루프
+        for(let end = t.length - 1; end < s.length; end++) {
+          // 현재 루프 end 인덱스값 추가
+          if(sourceMap.has(s[end])) {
+            sourceMap.set(s[end], sourceMap.get(s[end]) + 1);
+          } else {
+            sourceMap.set(s[end], 1);
+          }
+
+          // 비교
+          if(compareMaps(sourceMap, targetMap)) {
+            anagramCount++;
+          }
+
+          // 첫 인덱스값 차감 또는 삭제
+          sourceMap.set(s[end - (t.length - 1)], sourceMap.get(s[end - (t.length - 1)]) - 1);
+
+          if(sourceMap.get(s[end - (t.length - 1)]) === 0) {
+            sourceMap.delete(s[end - (t.length - 1)]);
+          }
+        }
+
+        return anagramCount;
+      }
+
+      let a="bacaAacba";
+      let b="abc";
+      console.log(solution(a, b));
+    </script>
+  </body>
+</html>
