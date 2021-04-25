@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(n, k) {
+        const remainList = Array.from({ length: n }, (value, idx) => idx + 1);
+        let curNum = 1;
+
+        while(remainList.length > 1) {
+          for(let i in remainList) {
+            const target = remainList.shift();
+
+            if(curNum === k) {
+              curNum = 1;
+            } else {
+              remainList.push(target);
+              curNum++;
+            }
+          }
+        }
+
+        return remainList[0];
+      }
+
+      // console.log(solution(8, 3));
+      // console.log(solution(5, 4));
+
+      function solution2(n, k) {
+        let result = "";
+        const remainList = Array.from({ length: n }, (value, idx) => idx + 1);
+
+        while(remainList.length > 0) {          
+          for(let i = 1; i < k; i++) {
+            const target = remainList.shift();
+            remainList.push(target);
+          }
+
+          remainList.shift();
+
+          if(remainList.length === 1) {
+            result = remainList.shift();
+          }
+        }
+
+        return result;
+      }
+
+      console.log(solution2(8, 3));
+      console.log(solution2(5, 4));
+    </script>
+  </body>
+</html>
