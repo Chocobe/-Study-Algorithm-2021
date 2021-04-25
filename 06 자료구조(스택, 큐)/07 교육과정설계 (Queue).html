@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(need, plan) {
+        const needList = need.split("");
+        const planList = plan.split("");
+        let needNum = 0;
+
+        for(let i = 0; i < plan.length; i++) {
+          const curPlan = planList.shift();
+          
+          if(curPlan === needList[needNum]) {
+            planList.push(curPlan);
+            needNum++;
+          }
+        }
+
+        return planList.length === needList.length ? "YES" : "NO";
+      }
+
+      // let a="CBA";
+      let a = "CBA";
+      let b = "CBDAGE";
+      // console.log(solution(a, b));
+
+      function solution2(need, plan) {
+        const needList = need.split("");
+
+        for(let curPlan of plan) {
+          if(needList.includes(curPlan)) {
+            const curNeed = needList.shift();
+
+            if(curNeed !== curPlan) {
+              return "NO";
+            }
+          }
+        }
+
+        return needList.length === 0 ? "YES" : "NO";
+      }
+      console.log(solution2(a, b));
+    </script>
+  </body>
+</html>
