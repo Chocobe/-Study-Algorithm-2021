@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(s) {
+        let result = "";
+        
+        const bracketStack = [];
+
+        for(let i in s) {
+          switch(s[i]) {
+            case "(": {
+              bracketStack.push("(");
+              break;
+            }
+
+            case ")": {
+              bracketStack.pop();
+              break;
+            }
+
+            default: {
+              if(bracketStack.length === 0) {
+                result += s[i];
+              }
+            }
+          }
+        }
+
+        return result;
+      }
+
+      let str="(A(BC)D)EF(G(H)(IJ)K)LM(N)";
+      // console.log(solution(str));
+
+      function solution2(s) {
+        const stack = [];
+
+        for(let curChar of s) {
+          if(curChar === ")") {
+            for(let i = stack.length - 1; i >= 0; i--) {
+              const popChar = stack.pop();
+
+              if(popChar === "(") {
+                break;
+              }
+            }
+          } else {
+            stack.push(curChar);
+          }
+        }
+
+        return stack.join("");
+      }
+      
+      console.log(solution2(str));
+    </script>
+  </body>
+</html>
