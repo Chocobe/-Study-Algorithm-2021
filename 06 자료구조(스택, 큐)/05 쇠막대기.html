@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+      <script>
+        function solution2(s) {
+          let result = 0;
+          const stack = [];
+
+          for(let i in s) {
+            const curChar = s[i];
+
+            if(curChar === "(") {
+              stack.push(curChar);
+            } else {
+              const popData = stack.pop();
+
+              if(s[i - 1] === "(") {
+                result += stack.length;
+              } else {
+                // s[i - 1] === ")"
+                result++;
+              }
+            }
+          }
+
+          return result;
+        }
+        
+        let a = "()(((()())(())()))(())";
+        let b = "(((()(()()))(())()))(()())";
+        let c = "(()())(())"        
+
+        console.log("solution2: ", solution2(a));
+        console.log("solution2: ", solution2(b));
+        console.log("solution2: ", solution2(c));
+      </script>
+  </body>
+</html>
