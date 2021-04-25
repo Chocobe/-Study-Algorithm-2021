@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(s){
+        const bracketMap = new Map();
+        bracketMap.set("(", 0);
+        bracketMap.set(")", 0);
+
+        for(let bracket of s) {
+          if(bracketMap.has(bracket)) {
+            bracketMap.set(bracket, bracketMap.get(bracket) + 1);
+          }
+        }
+
+        return bracketMap.get("(") === bracketMap.get(")") ? "YES" : "NO";
+      }
+      
+      let a="(()(()))(()";
+      // console.log(solution(a));
+
+      function solution2(s) {
+        const stack = [];
+
+        for(let bracket of s) {
+          if(bracket === "(") {
+            stack.push(bracket);
+          } else {
+            if(stack.length === 0) {
+              return "NO";
+            }
+
+            stack.pop();
+          }
+        }
+
+        return stack.length === 0 ? "YES" : "NO";
+      }
+
+      console.log(solution2(a));
+    </script>
+  </body>
+</html>
