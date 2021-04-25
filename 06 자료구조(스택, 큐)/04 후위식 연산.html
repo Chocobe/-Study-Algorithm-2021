@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(s) {        
+        let result = 0;
+
+        const digitStack = [];
+
+        for(let curChar of s) {
+          if(Number.isNaN(Number(curChar))) {
+            let rhs = digitStack.pop();
+            let lhs = digitStack.pop();
+
+            switch(curChar) {
+              case "+": {
+                digitStack.push(lhs + rhs);
+                break;
+              }
+
+              case "-": {
+                digitStack.push(lhs - rhs);
+                break;
+              }
+
+              case "*": {
+                digitStack.push(lhs * rhs);
+                break;
+              }
+
+              case "/": {
+                digitStack.push(lhs / rhs);
+                break;
+              }
+            }
+          } else {
+            digitStack.push(Number(curChar));
+          }
+        }
+
+        return digitStack[0];
+      }
+
+      let str="352+*9-";
+      console.log(solution(str));
+    </script>
+  </body>
+</html>
