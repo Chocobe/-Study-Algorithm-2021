@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      // function solution(arr) {
+      //   for(let i = 0; i < arr.length - 1; i++) {
+      //     for(let j = i + 1; j < arr.length; j++) {
+      //       const lhs = arr[i];
+      //       const rhs = arr[j];
+
+      //       if(lhs > rhs) {
+      //         arr[j] = lhs;
+      //         arr[i] = rhs;
+      //       }
+      //     }
+      //   }
+
+      //   return arr;
+      // }
+
+      let arr=[13, 5, 11, 7, 23, 15];
+      // console.log(solution(arr));
+
+      function solution2(arr) {
+        for(let i = 0; i < arr.length - 1; i++) {
+          for(let j = i + 1; j < arr.length; j++) {
+            const lhs = arr[i];
+            const rhs = arr[j];
+
+            if(lhs > rhs) {
+              [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+          }
+        }
+
+        let myLhs = "Hello";
+        let myRhs = "World";
+
+        console.log("변환전 myLhs: ", myLhs);
+        console.log("변환전 myRhs: ", myRhs);
+
+        [myLhs, myRhs] = [myRhs, myLhs];
+
+        console.log("변환 후 myLhs: ", myLhs);
+        console.log("변환 후 myRhs: ", myRhs);
+
+        return arr;
+      }
+
+      console.log(solution2(arr));
+    </script>
+  </body>
+</html>
