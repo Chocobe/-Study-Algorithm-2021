@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      // function solution(meeting) {
+      //   let resultCount = 0;
+      //   let resultList = [];
+
+      //   for(let i = 0; i < meeting.length; i++) {
+      //     const curResultList = [meeting[i]];
+      //     let curResultCount = 1;
+
+      //     for(let j = i + 1; j < meeting.length; j++) {
+      //       if(curResultList[curResultList.length - 1][1] <= meeting[j][0]) {
+      //         curResultList.push(meeting[j]);
+      //         curResultCount++;
+      //       }
+      //     }
+
+      //     if(resultCount < curResultCount) {
+      //       resultCount = curResultCount;
+      //       resultList = curResultList;
+      //     }
+      //   }
+
+      //   console.log("최대 회의 리스트: ", resultList);
+
+      //   return resultCount;
+      // }
+
+      // function solution2(arr) {
+      //   const sortedArr = arr.sort((lhs, rhs) => {
+      //     return lhs[0] - rhs[0];
+      //   });
+
+      //   let resultList = [];
+
+      //   for(let i = 0; i < sortedArr.length; i++) {
+      //     const curMeeting = sortedArr[i];
+
+      //     const curResultList = [curMeeting];
+
+      //     for(let j = i + 1; j < sortedArr.length; j++) {
+      //       if(curResultList[curResultList.length - 1][1] <= sortedArr[j][0]) {
+      //         curResultList.push(sortedArr[j]);
+      //       }
+      //     }
+
+      //     if(resultList.length < curResultList.length) {
+      //       resultList = curResultList;
+      //     }
+      //   }
+
+      //   console.log("resultList: ", resultList);
+        
+      //   return resultList.length;
+      // }
+
+      let arr = [[1, 4], [2, 3], [3, 5], [4, 6], [5, 7]];
+      let arr2 = [[3, 3], [1, 3], [2, 3]];
+      // console.log(solution2(arr));
+      // console.log(solution2(arr2));
+
+      function solutionSample(arr) {        
+        let result = 0;
+        
+        const sortedArr = arr.sort((lhs, rhs) => {
+          if(lhs[1] === rhs[1]) {
+            return lhs[0] - rhs[0];
+          } else {
+            return lhs[1] - rhs[1];
+          }
+        });
+
+        let endTime = 0;
+
+        for(let curMeeting of arr) {
+          if(curMeeting[0] >= endTime) {
+            endTime = curMeeting[1];
+            result++;
+          }
+        }
+
+        return result;
+      }
+
+      console.log(solutionSample(arr));
+      console.log(solutionSample(arr2));
+    </script>
+  </body>
+</html>
