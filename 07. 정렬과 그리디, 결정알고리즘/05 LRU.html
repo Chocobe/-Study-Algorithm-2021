@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      // function solution(size, arr) {
+      //   let cache = Array.from({length: size}, () => 0);
+
+      //   for(let i = 0; i < arr.length ; i++) {
+      //     const temp = [];
+
+      //     for(let j = 0; j < cache.length; j++) {
+      //       if(cache[j] === arr[i]) {
+      //         temp[0] = cache[j];
+
+      //         for(let k = j + 1; k < cache.length; k++) {
+      //           temp[k] = cache[k];
+      //         }
+      //       } else {
+      //         if(j === cache.length - 1) {
+      //           temp[0] = arr[i];
+      //         } else {
+      //           temp[j + 1] = cache[j];
+      //         }
+      //       }
+      //     }
+
+      //     cache = temp;
+      //   }
+
+      //   return cache;
+      // }
+
+      let arr = [1, 2, 3, 2, 6, 2, 3, 5, 7];
+      // console.log(solution(5, arr));
+
+      function solution2(size, arr) {
+        const cache = Array.from({length: size}, () => 0);
+
+        arr.forEach(work => {
+          let hitIndex = -1;
+
+          for(let i = 0; i < cache.length; i++) {
+            if(cache[i] === work) {
+              hitIndex = i;
+              break;
+            }
+          }
+
+          if(hitIndex === -1) {
+            for(let i = cache.length - 1; i > 0; i--) {
+              cache[i] = cache[i - 1];
+            }
+          } else {
+            for(let i = hitIndex; i > 0; i--) {
+              cache[i] = cache[i - 1];
+            }
+          }
+
+          cache[0] = work;
+        });
+
+        return cache;
+      }
+      
+      console.log(solution2(5, arr));
+    </script>
+  </body>
+</html>
