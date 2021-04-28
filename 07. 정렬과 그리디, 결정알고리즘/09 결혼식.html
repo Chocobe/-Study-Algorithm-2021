@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(times) {
+        let maxCount = 0;
+        const timesPartsList = [];
+
+        for(let i = 0; i < times.length; i++) {
+          const start = [
+            times[i][0],
+            "start"
+          ];
+
+          const end = [
+            times[i][1],
+            "end"
+          ];
+
+          timesPartsList.push(start);
+          timesPartsList.push(end);
+        }
+
+        timesPartsList.sort((lhs, rhs) => {
+          if(lhs[0] === rhs[0]) {
+            return lhs[1] > rhs[1] ? 1 : -1;
+          } else {
+            return lhs[0] - rhs[0];
+          }
+        });
+
+        let curCount = 0;
+
+        for(let i = 0; i < timesPartsList.length; i++) {
+          if(timesPartsList[i][1] === "start") {
+            curCount++;
+
+            if(maxCount < curCount) {
+              maxCount = curCount;
+            }
+          } else {
+            curCount--;
+          }
+        }
+
+        return maxCount;
+      }
+
+      let arr = [[14, 18], [12, 15], [15, 20], [20, 30], [5, 14]];     
+      // console.log(solution(arr));
+
+      function solutionSample(arr) {
+        let answer = Number.MIN_SAFE_INTEGER;
+        const timeLine = [];
+
+        for(let time of arr) {
+          timeLine.push([time[0], "s"]);
+          timeLine.push([time[1], "e"]);
+        }
+
+        timeLine.sort((lhs, rhs) => {
+          if(lhs[0] === rhs[0]) {
+            return lhs[1].charCodeAt() - rhs[1].charCodeAt();
+          } else {
+            return lhs[0] - rhs[0];
+          }
+        });
+
+        let count = 0;
+        
+        for(let time of timeLine) {
+          if(time[1] === "s") {
+            count++;
+          } else {
+            count--;
+          }
+
+          answer = Math.max(count, answer);
+        }
+
+        return answer;
+      }
+
+      console.log(solutionSample(arr));
+    </script>
+  </body>
+</html>
