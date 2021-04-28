@@ -37,6 +37,7 @@ Javascript 를 사용한 알고리즘 스터디 저장소 입니다.
     * [02-04. ``선택정렬 (Selection Sort)``](#02-04)
     * [02-05. ``버블정렬 (Bubble Sort)``](#02-05)
     * [02-06. ``삽입정렬 (Insertion Sort)``](#02-06)
+    * [02-07. ``그리디 알고리즘 (Greedy Algorithm)``](#02-07)
 
 <br/>
 
@@ -1054,6 +1055,122 @@ console.log(arr); // [1, 2, 3, 7, 8]
 <br/>
 
 선택정렬의 시간복잡도는 ``n^2`` 이지만, Best 상황에서는 ``n`` 입니다.
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<br><br><hr/>
+
+
+
+##### 02-07
+## 02-07. ``그리디 알고리즘 (Greedy Algorithm)``
+
+``탐욕 알고리즘`` 으로도 불리는 ``그리디 알고리즘`` 은 선택의 순간순간 ``최대한 많은 것`` 을 가질 수 있도록 만든 알고리즘 입니다.
+
+그리디 알고리즘은 ``지금의 선택만을 고려할 뿐, 차후에 대한 상황은 생각하지 않는`` 특징이 있습니다.
+
+때문에 항상 최상의 결과를 가져오지는 않으며, 상황에 맞춰 개발자가 선택사항으로 사용해야 하는 알고리즘 입니다.
+
+<br/>
+
+그리디 알고리즘을 사용할 수 있다고 판단할 수 있는 상황은 다음과 같습니다.
+
+1. 항상 최상의 선택이 최고의 결과가 되는 상황
+2. 최상의 값 하나가 아닌, 근사치 만으로도 괜찮은 상황
+
+<br/>
+
+그리디 알고리즘이 가장 적합한 예제로는 ``가장 적은 개수의 동전으로 거스름돈 구하기`` , ``강의실에 강의 배치하기`` 등이 있습니다.
+
+다음 코드는 ``가장 적은 개수의 동전으로 거스름돈 구하기`` 예제 입니다.
+
+```javascript
+const money = 3980;
+const coinList = [500, 100, 50, 10];
+
+function calcCoin(money) {
+  const coinCountMap = new Map();
+  
+  // coinCountMap 을 0 으로 초기화
+  coinList.forEach(curCoin => {
+    coinCountMap.set(curCoin, 0);
+  });
+
+  // 그리디 알고리즘 적용 (매 순간 최대값으로 계산)
+  // 1. 500원 동전으로 환전되는 최대 개수 구하기
+  // 2. 100원 동전으로 환전되는 최대 개수 구하기
+  // 3. 50원 동전으로 환전되는 최대 개수 구하기
+  // 4. 10원 동전으로 환전되는 최대 개수 구하기
+  let remainMoney = money;
+
+  coinList.forEach(curCoin => {
+    const quotient = Math.floor(remainMoney / curCoin);
+    remainMoney = remainMoney % curCoin;
+
+    coinCountMap.set(curCoin, quotient);
+  });
+
+  for(let [key, count] of coinCountMap) {
+    console.log(`${key}짜리 동전: ${count}개`);
+  }
+}
+
+calcCoin(money);
+```
+
+[동전 원본파일](./greedy_coin.js)
+
+<br/>
+
+다음은 ``강의실에 강의 배치하기`` 예제 입니다.
+
+시간이 겹치지 않게 가장 많은 강의를 배치하려면, 다음 고려사항을 충족하면 구할 수 있습니다.
+
+1. ``강의종료 시간`` 이 가짱 빠른 순서 정렬
+2. ``강의시작 시간`` 이 가장 빠른 순서 정렬
+
+즉, 강의종료 시간이 가장 빠른 순서로 선택하고, ``동일한 강의종료 시간`` 이 있다면, ``강의시작 시간`` 이 빠른 순으로 정렬하여 선택하면, 가장 많은 강의를 배치할 수 있습니다.
+
+```javascript
+const lectureList1 = [[1, 4], [2, 3], [3, 5], [4, 6], [5, 7]];
+const lectureList2 = [[3, 3], [1, 3], [2, 3]];
+
+function calcLectureCount(lectureList) {
+  let maxCount = 0;
+
+  const sortedLectureList = lectureList.slice();
+
+  // 1. 종료시간 오름차순(ASC) 정렬
+  // 2. 종료시간이 같다면, 시작시간 오름차순(ASC) 정렬
+  sortedLectureList.sort((lhs, rhs) => {
+    if(lhs[1] === rhs[1]) {
+      return lhs[0] - rhs[0];
+    } else {
+      return lhs[1] - rhs[1];
+    }
+  });
+
+  let beforeEndTime = 0;
+
+  sortedLectureList.forEach(curLecture => {
+    if(curLecture[0] >= beforeEndTime) {
+      beforeEndTime = curLecture[1];
+      maxCount++;
+    }
+  });
+
+  console.log("강의 최대 배치수: ", maxCount);
+}
+
+calcLectureCount(lectureList1);
+calcLectureCount(lectureList2);
+```
+
+[강의실 원본파일](./greedy_lecture.js)
 
 
 
