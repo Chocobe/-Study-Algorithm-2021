@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(count, position) {
+        const sortedPosition = position.sort((lhs, rhs) => lhs - rhs);
+
+        let resultDist = Number.MAX_SAFE_INTEGER;
+
+        let min = sortedPosition[0];
+        let max = sortedPosition[sortedPosition.length - 1];
+
+        while(min <= max) {
+          let mid = Math.floor((max + min) / 2);
+
+          let curCount = 1;
+          let beforePosition = sortedPosition[0];
+
+          for(let i = 1; i < sortedPosition.length; i++) {
+            if(sortedPosition[i] - beforePosition >= mid) {
+              curCount++;
+              beforePosition = sortedPosition[i];
+            }
+          }
+
+          if(curCount >= count) {
+            resultDist = mid;
+            min = mid + 1;
+          } else {
+            max = mid - 1;
+          }
+        }
+
+        return resultDist;
+      }
+
+      let arr=[1, 2, 8, 4, 9];
+      console.log(solution(3, arr));
+    </script>
+  </body>
+</html>
