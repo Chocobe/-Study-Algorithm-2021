@@ -39,6 +39,7 @@ Javascript 를 사용한 알고리즘 스터디 저장소 입니다.
     * [02-06. ``삽입정렬 (Insertion Sort)``](#02-06)
     * [02-07. ``그리디 알고리즘 (Greedy Algorithm)``](#02-07)
     * [02-08. ``이분탐색 (Binary Search)``](#02-08)
+    * [02-09. ``파라메트릭 알고리즘 (Parametric Algorithm)``](#02-09)
 
 <br/>
 
@@ -1238,6 +1239,103 @@ function searchByBinary(target, arr) {
 }
 
 console.log("탐색결과: ", searchByBinary(32, arr));
+```
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<br><br><hr/>
+
+
+
+##### 02-09
+## 02-09. ``파라메트릭 알고리즘 (Parametric Algorithm)``
+
+``파라메트릭 알고리즘`` 은 ``이분탐색`` 과 유사한 알고리즘 입니다.
+
+``이분검색`` 은 ``특정값을 찾기 위한`` 알고리즘이지만, ``파라메트릭 알고리즘`` 은 ``여러가지 값 중, 조건에 가장 근접한 값`` 을 찾는 알고리즘 입니다.
+
+<br/>
+
+파라메트릭 알고리즘의 기본 원리는 ``이분탐색`` 을 사용 합니다.
+
+``이분탐색`` 은 답을 찾으면 종료하는데 반해, ``파라메트릭 알고리즘`` 은 반복 가능한 루프를 모두 반복하면서 ``가장 마지막에 도출된 값`` 을 답으로 도출 합니다.
+
+즉, 여러가지 값 중에서 ``조건에 가장 근접한 값`` 을 찾는 방법이 ``파라메트릭 알고리즘`` 입니다.
+
+<br/>
+
+``파라메트릭 알고리즘`` 은 ``이분탐색`` 을 사용하므로, 기본 구현 역시 ``이분탐색`` 으로 구현 합니다.
+
+``파라메트릭 알고리즘`` 을 구현하려면 다음 값들을 도출해야 합니다.
+
+1. ``최소값`` : 조건은 만족 할지도 모르는 값
+2. ``최대값`` : 조건을 만족 할 수있는 값
+
+``최소값`` 과 ``최대값`` 은 정확한 값이 아니라도 값을 도출하는데 영향은 없습니다.
+
+다만, 부정확 할수록 반복 횟수가 많아질 뿐입니다.
+
+<br/>
+
+다음은 값의 순서를 유지하며, 동일한 용량 3개의 공간에 분리할 때, 가장 적은 용량을 구하는 예제 입니다.
+
+```javascript
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const count = 3;
+
+function calcParametricAlgorithm(arr, count) {
+  // 조건을 만족 할지도 모르는 값을 ``최소값`` 으로 초기화
+  let min = Math.min(...arr);
+  // 조건을 만족 할 수 있는 값을 ``최대값`` 으로 초기화
+  let max = arr.reduce((total, curValue) => total + curValue);
+
+  // 1개 공간의 용량 (도출할 결과)
+  let resultSize = max;
+
+  // 이분탐색 루프
+  while(min <= max) {
+    // 중간값 도출
+    let mid = Math.floor((max + min) / 2);
+
+    // (현재 중간값에 대한) 공간 개수
+    let curCount = 1;
+    // (현재 중간값에 대한) 공간당 용량
+    let curSize = 0;
+
+    // (현재 중간값에 대한) 조건을 벗어나지 않을때 까지 연산
+    for(let i = 0; i < arr.length; i++) {
+      if(curSize + arr[i] <= mid) {
+        curSize += arr[i];
+      } else {
+        curCount++;
+        curSize = arr[i];
+      }
+
+      if(curCount > count) {
+        break;
+      }
+    }
+
+    if(curCount > count) {
+      // 조건을 벗어난다면, (이분탐색) 우측 탐색
+      min = mid + 1;
+    } else {
+      // 조건을 만족한다면, (이분탐색) 좌측 탐색
+      // 사용된 mid 값을 도출된 값으로 사용
+      // 값이 도출될수록 ``조건의 근사치`` 가 됨
+      resultSize = mid;
+      max = mid - 1;
+    }
+  }
+
+  console.log("결과: ", resultSize);
+}
+
+calcParametricAlgorithm(arr, count);
 ```
 
 
