@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      // function solution(n) {
+      //   return parseToBinary(n);
+        
+      //   function parseToBinary(n) {
+      //     if(n === 0) {
+      //       return "";
+      //     }
+          
+      //     let binaryCode = parseToBinary(Math.floor(n / 2));
+      //     return binaryCode + String(n % 2);
+      //   }
+      // }
+
+      // console.log(solution(11));
+
+      function solution2(n) {
+        let result = "";
+
+        function parseToBinary(target) {
+          if(target === 0) return;
+
+          parseToBinary(Math.floor(target / 2));
+          result += String(target % 2);
+        }
+
+        parseToBinary(n);
+        return result;
+      }
+
+      console.log(solution2(11));
+    </script>
+  </body>
+</html>
