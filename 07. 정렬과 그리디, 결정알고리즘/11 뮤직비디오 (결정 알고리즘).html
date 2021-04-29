@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      // function solution(count, songList) {        
+      //   let min = Math.max(...songList);
+      //   let max = songList.reduce((total, curValue) => {
+      //     return total + curValue;
+      //   });
+
+      //   let resultSize = max;
+
+      //   while(min <= max) {
+      //     let mid = Math.floor((max + min) / 2);
+
+      //     let diskCount = 1;
+      //     let curSize = 0;
+
+      //     for(let i = 0; i < songList.length; i++) {
+      //       if(diskCount > count) {
+      //         break;
+      //       }
+            
+      //       if(curSize + songList[i] <= mid) {
+      //         curSize += songList[i];
+      //       } else {
+      //         diskCount++;
+      //         curSize = songList[i];
+      //       }
+      //     }
+
+      //     if(diskCount > count) {
+      //       min = mid + 1;
+      //     } else {
+      //       resultSize = mid;
+      //       max = mid - 1;
+      //     }
+      //   }
+
+      //   return resultSize;
+      // }
+
+      function getDiskCount(arr, size, limitCount) {
+        let diskCount = 1;
+        let curSize = 0;
+
+        for(let i = 0; i < arr.length; i++) {
+          if(curSize + arr[i] <= size) {
+            curSize += arr[i];
+          } else {
+            diskCount++;
+            curSize = arr[i];
+          }
+
+          if(diskCount > limitCount) {
+            return false;
+          }
+        }
+
+        return true;
+      }
+
+      function solution(count, songList) {        
+        let min = Math.min(...songList);
+        let max = songList.reduce((total, curValue) => total + curValue);
+
+        let resultSize = max;
+
+        while(min <= max) {
+          let mid = Math.floor((max + min) / 2);
+
+          if(getDiskCount(songList, mid, count)) {
+            resultSize = mid;
+            
+            max = mid - 1;
+          } else {
+            min = mid + 1;
+          }
+        }
+
+        return resultSize;
+      }
+
+      let arr=[1, 2, 3, 4, 5, 6, 7, 8, 9];
+      console.log(solution(3, arr));
+    </script>
+  </body>
+</html>
