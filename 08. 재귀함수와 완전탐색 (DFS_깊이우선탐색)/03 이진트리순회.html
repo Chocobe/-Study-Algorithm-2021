@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(n) {
+        // 전위순회 호출
+        const preorderResult = calcPreorderTraverse(n);
+        // 중위순회 호출
+        const innerorderResult = calcInnerorderTraverse(n);
+        // 후위순회 호출
+        const postorderResult = calcPostorderTraverse(n);
+        
+        // 전위순회 함수
+        function calcPreorderTraverse(target) {
+          if(target > 7) return "";
+          
+          let result = target;
+          
+          for(let i = 0; i < 2; i++) {
+            result += calcPreorderTraverse((target * 2) + i);
+          }
+
+          return result;
+        }
+
+        // 중위순회 함수
+        function calcInnerorderTraverse(target) {
+          if(target > 7) return "";
+
+          let result = "";
+
+          result += calcInnerorderTraverse((target * 2) + 0);
+          result += target;
+          result += calcInnerorderTraverse((target * 2) + 1);
+
+          return result;
+        }
+
+        // 후위순회 함수
+        function calcPostorderTraverse(target) {
+          if(target > 7) return "";
+          
+          let result = "";
+          
+          for(let i = 0; i < 2; i++) {
+            result += calcPostorderTraverse((target * 2) + i);
+          }
+
+          return result + target;
+        }
+
+        return `${preorderResult}\n${innerorderResult}\n${postorderResult}`;
+      }
+
+      console.log(solution(1));
+    </script>
+  </body>
+</html>
