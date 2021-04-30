@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(m, arr) {
+        const result = [];
+        permutation(0);
+
+        return result;
+        
+        function permutation(curDepth) {
+          if(curDepth >= m) {
+            const curResult = [];
+
+            for(let i = 0; i < m; i++) {
+              curResult.push(arr[i]);
+            }
+
+            result.push(curResult);
+            return;
+          }
+
+          for(let i = curDepth; i < arr.length; i++) {
+            const originLhs = arr[curDepth];
+            arr[curDepth] = arr[i];
+            arr[i] = originLhs;
+
+            permutation(curDepth + 1);
+
+            arr[i] = arr[curDepth];
+            arr[curDepth] = originLhs;
+          }
+        }
+      }
+
+      let arr=[3, 6, 9];
+      console.log(solution(2, arr));
+
+      function solution2(m, arr) {
+        const result = [];
+        const status = Array.from({length: arr.length}, () => false);
+        const tempList = Array.from({length: m}, () => 0);
+
+        permutation(0);
+
+        return result;
+
+        function permutation(curDepth) {
+          if(curDepth >= m) {
+            result.push(tempList.slice());
+            return;
+          }
+
+          for(let i = 0; i < arr.length; i++) {
+            if(!status[i]) {
+              status[i] = true;
+              tempList[curDepth] = arr[i];
+
+              permutation(curDepth + 1);
+
+              status[i] = false;
+            }
+          }
+        }
+      }
+
+      console.log(solution2(2, arr));
+    </script>
+  </body>
+</html>
