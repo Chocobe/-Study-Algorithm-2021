@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(n, m) {
+        const resultList = [];
+
+        recursive(1, []);
+
+        function recursive(curCount, curList) {
+          if(curCount > m) {
+            resultList.push(curList);
+            return;
+          }
+
+          for(let i = 1; i <= n; i++) {
+            const clonedList = curList.slice();
+            clonedList.push(i);
+            recursive(curCount + 1, clonedList);
+          }
+        }
+
+        return resultList;
+      }
+
+      console.log(solution(3, 2));
+
+      function solution2(n, m) {
+        const resultList = [];
+        const tempList = Array.from({length: m}, () => 0);
+
+        recursive(0);
+
+        function recursive(curDepth) {
+          if(curDepth >= m) {
+            resultList.push(tempList.slice());
+            return;
+          }
+
+          for(let i = 1; i <= n; i++) {
+            tempList[curDepth] = i;
+            recursive(curDepth + 1);
+          }
+        }
+
+        return resultList;
+      }
+
+      console.log(solution2(3, 2));
+
+      // depth (또는 count 가 변동되는 경우, 다중 for문으로는 구할 수 없다)
+      function solution3(n, m) {
+        const resultList = [];
+
+        for(let i = 1; i <= n; i++) {
+          for(let j = 1; j <= n; j++) {
+            resultList.push([i, j]);
+          }
+        }
+
+        return resultList;
+      }
+
+      console.log(solution3(3, 2));
+    </script>
+  </body>
+</html>
