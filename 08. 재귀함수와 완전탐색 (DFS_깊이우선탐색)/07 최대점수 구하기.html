@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(m, ps, pt) {
+        let resultScore = 0;
+        recursive(0, 0, 0);
+
+        return resultScore;
+
+        function recursive(curDepth, sumOfScore, sumOfTime) {
+          if(sumOfTime > m) {
+            return;
+          }
+          
+          if(curDepth >= ps.length) {
+            resultScore = Math.max(resultScore, sumOfScore);
+          } else {
+            recursive(curDepth + 1, sumOfScore + ps[curDepth], sumOfTime + pt[curDepth]);
+            recursive(curDepth + 1, sumOfScore, sumOfTime);
+          }
+        }
+      }
+
+      let ps=[10, 25, 15, 6, 7];
+      let pt=[5, 12, 8, 3, 4]
+      console.log(solution(20, ps, pt));
+    </script>
+  </body>
+</html>
