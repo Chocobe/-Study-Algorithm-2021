@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      // function solution(c, arr) {
+      //   let result = 0;
+
+      //   recursive(0, 0);
+
+      //   return result;
+
+      //   function recursive(curDepth, sum) {
+      //     if(curDepth >= arr.length) {
+      //       if(sum <= c && sum > result) {
+      //         result = sum;
+      //       }
+      //     } else {
+      //       recursive(curDepth + 1, sum + arr[curDepth]);
+      //       recursive(curDepth + 1, sum);
+      //     }
+      //   }
+      // }
+
+      let arr=[81, 58, 42, 33, 61];
+      // console.log(solution(259, arr));
+
+      function solution2(c, arr) {
+        let result = Number.MIN_SAFE_INTEGER;
+        recursive(0, 0);
+
+        return result;
+
+        function recursive(curDepth, sum) {
+          if(sum > c) return;
+
+          if(curDepth >= arr.length) {
+            result = Math.max(result, sum);
+          } else {
+            recursive(curDepth + 1, sum + arr[curDepth]);
+            recursive(curDepth + 1, sum);
+          }
+        }
+      }
+
+      console.log(solution2(259, arr));
+    </script>
+  </body>
+</html>
