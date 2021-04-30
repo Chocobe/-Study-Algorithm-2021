@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      // function solution(n) {
+      //   const result = [];
+      //   const status = Array.from({length: n}, () => false);
+
+      //   recursive(0);
+
+      //   return result;
+
+      //   function recursive(num) {
+      //     if(num >= n) {
+      //       let curResult = "";
+            
+      //       for(let i = 0; i < n; i++) {
+      //         if(status[i]) {
+      //           curResult += `${i + 1} `;
+      //         }
+      //       }
+
+      //       curResult = curResult.trim();
+
+      //       if(curResult) {
+      //         result.push(curResult);
+      //       }
+      //     } else {
+      //       status[num] = true;
+      //       recursive(num + 1);
+
+      //       status[num] = false;
+      //       recursive(num + 1);
+      //     }
+      //   }
+      // }
+
+      function solution(n) {
+        const result = [];
+        const status = Array.from({length: n + 1}, () => false);
+
+        getSubSet(1);
+        return result;
+        
+        function getSubSet(curNum) {
+          if(curNum > n) {
+            // 부분집합 1개 도출
+            let curResult = "";
+            
+            for(let i = 1; i < status.length; i++) {
+              if(status[i]) {
+                curResult += `${i} `;
+              }
+            }
+
+            if(curResult) {
+              result.push(curResult.trim());
+            }
+          } else {
+            // 현재 요소 선택 상태의 부분집합
+            status[curNum] = true;
+            getSubSet(curNum + 1);
+
+            // 현재 요소 미선택 상태의 부분집합
+            status[curNum] = false;
+            getSubSet(curNum + 1);
+          }
+        }
+      }
+
+      console.log(solution(3));
+    </script>
+  </body>
+</html>
