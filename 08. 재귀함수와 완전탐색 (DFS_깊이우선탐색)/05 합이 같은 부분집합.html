@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  
+  <body>
+    <script>
+      // function solution(arr) {
+      //   const status = Array.from({length: arr.length}, (value, index) => {
+      //     return index === 0;
+      //   });
+      //   const lhs = [];
+      //   const rhs = [];
+      //   const sumList = [];
+      //   let result = "NO";
+
+      //   console.log("status: ", status);
+
+      //   recursive(1);
+
+      //   function recursive(curDepth) {          
+      //     if(curDepth >= status.length) {
+      //       const curLhs = [];
+      //       const curRhs = [];
+      //       let curSumOfLhs = 0;
+      //       let curSumOfRhs = 0;
+            
+      //       for(let i = 0; i < status.length; i++) {
+      //         if(status[i]) {
+      //           curLhs.push(arr[i]);
+      //           curSumOfLhs += arr[i];
+      //         } else {
+      //           curRhs.push(arr[i]);
+      //           curSumOfRhs += arr[i];
+      //         }
+      //       }
+
+      //       lhs.push(curLhs);
+      //       rhs.push(curRhs);
+      //       sumList.push([curSumOfLhs, curSumOfRhs]);
+
+      //       console.log("curLhs: ", curLhs, " curRhs: ", curRhs);
+
+      //       if(curSumOfLhs === curSumOfRhs) {
+      //         result = "YES";
+      //       }
+      //     } else {
+      //       status[curDepth] = true;
+      //       recursive(curDepth + 1);
+
+      //       status[curDepth] = false;
+      //       recursive(curDepth + 1);
+      //     }
+      //   }
+
+      //   return result;
+      // }
+
+      let arr=[1, 3, 5, 6, 7, 10];
+      // console.log(solution(arr));
+
+      function solution2(arr) {
+        const total = arr.reduce((total, curValue) => total + curValue);
+        let result = "NO";
+        let isFinished = false;
+
+        recursive(0, 0);
+        
+        function recursive(curDepth, sum) {
+          if(isFinished) {
+            return;
+          }
+          
+          if(curDepth >= arr.length) {
+            if(total - sum === sum) {
+              result = "YES";
+            }
+          } else {
+            recursive(curDepth + 1, sum + arr[curDepth]);
+            recursive(curDepth + 1, sum);
+          }
+        }
+
+        return result;
+      }
+
+      console.log(solution2(arr));
+    </script>
+  </body>
+</html>
