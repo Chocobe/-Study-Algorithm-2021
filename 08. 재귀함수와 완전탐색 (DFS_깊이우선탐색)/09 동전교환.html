@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(m, arr) {
+        let result = 0;
+        let remain = m;
+
+        for(let i = arr.length - 1; i >= 0; i--) {
+          if(remain === 0) {
+            break;
+          }
+          
+          const quotient = Math.floor(remain / arr[i]);
+          remain = remain % arr[i];
+
+          result += quotient;
+        }
+
+        return result;
+      }
+
+      let arr=[1, 2, 5];
+      console.log(solution(15, arr));
+
+      function solution2(m, arr) {
+        let result = Number.MAX_SAFE_INTEGER;
+
+        recursive(0, 0);
+
+        return result;
+
+        function recursive(curSum, curCount) {
+          if(curSum > m || curCount >= result) {
+            return;
+          }
+
+          if(curSum === m) {
+            console.log("curSum: ", curSum, "curCount: ", curCount);
+            result = Math.min(result, curCount);
+            return;
+          }
+
+          for(let i = 0; i < arr.length; i++) {
+            recursive(curSum + arr[i], curCount + 1);
+          }
+        }
+      }
+
+      console.log(solution2(15, arr));
+    </script>
+  </body>
+</html>
