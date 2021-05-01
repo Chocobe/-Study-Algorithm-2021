@@ -1,0 +1,87 @@
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <title>출력결과</title>
+  </head>
+  
+  <body>
+    <script>
+      function solution(n, arr) {
+        let result = 0;
+        const status = Array.from({length: n + 1}, () => false);
+        const matrix = Array.from({length: n + 1}, () => []);
+        const tempResult = [1];
+
+        for(let [startNode, endNode] of arr) {
+          matrix[startNode].push(endNode);
+        }
+
+        status[1] = true;
+        recursive(1);
+
+        return result;
+
+        function recursive(startNode) {
+          if(startNode === 5) { 
+            result++;
+            console.log("curResult: ", tempResult);
+          } else {
+            for(let endNode of matrix[startNode]) {
+              if(!status[endNode]) {
+                status[endNode] = true;
+                tempResult.push(endNode);
+
+                recursive(endNode);
+                
+                status[endNode] = false;
+                tempResult.pop();
+              }
+            }
+          }
+        }
+      }
+
+      let arr=[[1, 2], [1, 3], [1, 4], [2, 1], [2, 3], [2, 5], [3, 4], [4, 2], [4, 5]];
+      console.log(solution(5, arr));
+      console.log("");
+
+      function solution2(n, arr) {
+        let result = 0;
+        
+        const matrix = Array.from({length: n + 1}, () => []);
+        const status = Array.from({length: n + 1}, () => false);
+        status[1] = true;
+        const temp = [1];
+
+        arr.forEach(([start, end]) => {
+          matrix[start].push(end);
+        });
+
+        recursive(1);
+
+        return result;
+
+        function recursive(startNode) {
+          if(startNode === 5) {
+            result++;
+            console.log(temp);
+          } else {
+            for(let endNode of matrix[startNode]) {
+              if(!status[endNode]) {
+                status[endNode] = true;
+                temp.push(endNode);
+
+                recursive(endNode);
+
+                status[endNode] = false;
+                temp.pop();
+              }
+            }
+          }
+        }
+      }
+
+      console.log(solution2(5, arr));
+    </script>
+  </body>
+</html>
