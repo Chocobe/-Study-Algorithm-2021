@@ -1,0 +1,20 @@
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <title>출력결과</title>
+  </head>
+  
+  <body>
+    <script>
+      function solution(n) {
+        if(n === 0 || n === 1) {
+          return 1;
+        }
+
+        return n * solution(n - 1);
+      }
+
+      console.log(solution(5));
+    </script>
+  </body>
+</html>
