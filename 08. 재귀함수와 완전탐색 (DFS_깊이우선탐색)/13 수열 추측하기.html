@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      // 풀이 예문
+      function solution(n, f) {
+        let answer;
+        let flag = false;
+        // 메모이제이션
+        let memoization = Array.from(Array(11), () => Array(11).fill(0));
+        // 각 요소의 사용여부
+        let check = Array.from({length: n + 1}, () => false);
+        // 순열
+        let permutation = Array.from({length: n}, () => 0);
+        // 
+        let b = Array.from({length: n}, () => 0);
+
+        function combination(n, r) {
+          if(memoization[n][r] > 0) return memoization[n][r];
+
+          if(r === 0 || r === n) return 1;
+
+          memoization[n][r] = combination(n - 1, r - 1) + combination(n - 1, r);
+          return memoization[n][r];
+        }
+
+        function DFS(L, sum) {
+          if(flag) return;
+
+          if(L === n && sum === f) {
+            answer = permutation.slice();
+            flag = true;
+          } else {
+            for(let i = 1; i <=n; i++) {
+              if(!check[i]) {
+                check[i] = true;
+                permutation[L] = i;
+
+                DFS(L + 1, sum + (b[L] * permutation[L]));
+
+                check[i] = false;
+              }
+            }
+          }
+        }
+
+        for(let i = 0; i < n; i++) {
+          b[i] = combination(n - 1, i);
+        }
+
+        DFS(0, 0);
+
+        return answer;
+      }
+
+      console.log(solution(4, 16));
+    </script>
+  </body>
+</html>
