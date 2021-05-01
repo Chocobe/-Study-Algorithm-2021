@@ -1857,7 +1857,6 @@ const resultArr = [];
 calcPermutation(myArr, resultArr, 0, 3);
 
 console.log("resultArr: ", resultArr);
-
 ```
 
 [원본파일](https://github.com/Chocobe/-Study-Algorithm-2021/blob/master/permutation.js)
@@ -1959,6 +1958,37 @@ function calcCombination(n, r) {
 }
 
 console.log(calcCombination(5, 3));
+```
+
+<br/>
+
+만약, 조합의 모든 경우를 구한다면, 다음과 같이 구현할 수 있습니다.
+
+```javascript
+const arr = [1, 3, 4, 5];
+
+function calcCombination(arr, count) {
+  const resultArr = [];
+  const tempResult = Array.from({length: count}, () => 0);
+
+  recursive(0, 0);
+  return resultArr;
+
+  function recursive(curDepth, startIdx) {
+    if(curDepth >= count) {
+      resultArr.push(tempResult.slice());
+      return;
+    }
+
+    for(let i = startIdx; i < arr.length; i++) {
+      tempResult[curDepth] = arr[i];
+      recursive(curDepth + 1, i + 1);
+    }
+  }
+}
+
+const resultArr = calcCombination(arr, 2);
+console.log(resultArr);
 ```
 
 
