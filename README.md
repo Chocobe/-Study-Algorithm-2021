@@ -43,6 +43,7 @@ Javascript 를 사용한 알고리즘 스터디 저장소 입니다.
     * [02-09. ``파라메트릭 알고리즘 (Parametric Algorithm)``](#02-09)
     * [02-10. ``트리 (Tree) 개념``](#02-10)
     * [02-11. ``트리 (Tree) 구조`` 를 활용한 ``부분집합`` 구하기](#02-11)
+    * [02-12. ``메모이제이션 (Memoization)``](#02-12)
 
 <br/>
 
@@ -1503,6 +1504,62 @@ function getSubSet(n) {
     // 
   }
 }
+```
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<br><br><hr/>
+
+
+
+##### 02-12
+## 02-12. ``메모이제이션 (Memoization)``
+
+``메모이제이션 (Memoization)`` 이란, 동일한 연산을 반복해야 할 경우, 한번 계산한 결과를 메모리에 ``저장`` 해둔 후, 중복계산시 ``저장된 값`` 을 사용하는 방법을 말합니다.
+
+특히 재귀함수의 경우, 반복연산에 의해 느려지는 연산속도를 ``비약적으로 높여줄 수 있는`` 알고리즘 입니다.
+
+<br/>
+
+``조합의 수`` 를 예를 들면 다음과 같습니다.
+
+* ``nCr`` 을 구하는 재귀함수를 만듭니다.
+* ``nCr`` 은 ``n-1Cr-1 + n-1Cr`` 이므로, ``n`` 과 ``r`` 이 감소하면서 ``중복연산`` 을 하게 됩니다.
+* ``Memoization`` 에 ``yCx`` 값을 좌표로써 ``[y][x]`` 에 저장합니다.
+* 재귀호출시 마다 ``Memoization`` 의 해당 좌표에 값이 있다면, 더이상 재귀호출을 하지 않고 ``Memoization`` 의 값을 반환합니다.
+
+<br/>
+
+위 원리는 구현하면 다음과 같습니다.
+
+```javascript
+const n = 5;
+const r = 3;
+
+// number[n + 1][r + 1] 배열을 생성하며, 모든 요소를 0으로 초기화 합니다.
+const memoization = Array.from({length: n + 1}, () => {
+  return Array.from({length: r + 1}, () => 0);
+});
+
+function calcCombination(n, r, memoization) {
+  // Memoization 에 이미 연산했던 결과가 있다면, 해당값으로 사용
+  if(memoization[n][r]) return memoization[n][r];
+  
+  if(r === 0 || r === n) return 1;
+
+  // nCr === n-1Cr-1 + n-1Cr
+  const curResult = calcCombination(n - 1, r - 1, memoization) + calcCombination(n - 1, r, memoization);
+  
+  memoization[n][r] = curResult;
+  
+  return curResult;
+}
+
+console.log(calcCombination(n, r, memoization));
 ```
 
 
