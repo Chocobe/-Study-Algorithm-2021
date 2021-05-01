@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(n, m) {
+        const answer = [];
+        const temp = Array.from({length: m}, () => 0);
+
+        function DFS(L, s) {
+          if(L === m) {
+            answer.push(temp.slice());
+          } else {
+            for(let i = s; i <= n; i++) {
+              temp[L] = i;
+              DFS(L + 1, i + 1);
+            }
+          }
+        }
+
+        DFS(0, 1);
+        return answer;
+      }
+
+      // console.log(solution(4, 2));
+
+      function solution2(arr, m) {
+        const result = [];
+        const tempResult = Array.from({length: m}, () => 0);
+
+        calcCombination(0, 0);
+
+        return result;
+
+        function calcCombination(curDepth, start) {
+          if(curDepth >= m) {
+            result.push(tempResult.slice());
+          } else {
+            for(let i = start; i < arr.length; i++) {
+              tempResult[curDepth] = arr[i];
+              calcCombination(curDepth + 1, i + 1);
+            }
+          }
+        }
+      }
+
+      console.log(solution2([1, 2, 3, 5], 2));
+
+      function solution3(arr, m) {
+        const result = [];
+        const tempResult = Array.from({length: m}, () => 0);
+
+        calcCombination(0, 0);
+
+        return result;
+
+        function calcCombination(curDepth, start) {
+          if(curDepth >= m) {
+            result.push(tempResult.slice());
+            return;
+          }
+
+          for(let i = start; i < arr.length; i++) {
+            tempResult[curDepth] = arr[i];
+            calcCombination(curDepth + 1, i + 1);
+          }
+        }
+      }
+
+      console.log("solution3(): ", solution3([3, 4, 5, 6], 2));
+    </script>
+  </body>
+</html>
