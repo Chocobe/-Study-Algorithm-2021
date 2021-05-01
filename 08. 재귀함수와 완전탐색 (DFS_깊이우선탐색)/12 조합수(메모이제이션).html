@@ -1,0 +1,56 @@
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <title>출력결과</title>
+  </head>
+  
+  <body>
+    <script>
+      function solution(n, r) {
+        const startDate = new Date();
+        
+        const result = calcCombination(n, r);
+
+        const endDate = new Date();
+        console.log("수행시간(s): ", (endDate - startDate));
+
+        return result;
+        
+        function calcCombination(n, r) {
+          if(r === 0 || n === r) return 1;
+
+          return calcCombination(n - 1, r - 1) + calcCombination(n - 1, r);
+        }
+      }
+
+      function solution2(n, r) {
+        const startDate = new Date();
+        
+        const memoization = Array.from({length: n + 1}, () => {
+          return Array.from({length: r + 1}, () => 0);
+        });
+
+        const result = calcCombination(n, r);
+
+        const endDate = new Date();
+        console.log("Memoization 수행시간: ", (endDate - startDate));
+
+        return result;
+
+        function calcCombination(n, r) {
+          if(memoization[n][r]) return memoization[n][r];
+          
+          if(r === 0 || r === n) return 1;
+
+          const curResult = calcCombination(n -1, r - 1) + calcCombination(n - 1, r);
+          memoization[n][r] = curResult;
+          
+          return curResult;
+        }
+      }
+
+      console.log(solution(33, 19));
+      console.log(solution2(33, 19));
+    </script>
+  </body>
+</html>
