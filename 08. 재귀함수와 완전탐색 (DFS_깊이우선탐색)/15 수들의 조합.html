@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(k, arr, m) {
+        const result = [];
+        const answer = [];
+        const tempResult = Array.from({length: k}, () => 0);
+
+        calcCombination(0, 0);
+        
+        return answer;
+
+        function calcCombination(curDepth, startIdx) {
+          if(curDepth >= k) {
+            result.push(tempResult.slice());
+
+            const curSum = tempResult.reduce((total, value) => total + value, 0);
+            if(curSum % m === 0) {
+              answer.push(tempResult.slice());
+            }
+
+            return;
+          }
+
+          for(let i = startIdx; i < arr.length; i++) {
+            tempResult[curDepth] = arr[i];
+            calcCombination(curDepth + 1, i + 1);
+          }
+        }
+      }
+
+      let arr=[2, 4, 5, 8, 12];
+      console.log(solution(3, arr, 6));
+    </script>
+  </body>
+</html>
