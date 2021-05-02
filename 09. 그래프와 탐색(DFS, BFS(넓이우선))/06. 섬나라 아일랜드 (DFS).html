@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(board) {
+        let count = 0;
+        let moveList = [
+          [-1, 0], [-1, 1], 
+          [0, 1], [1, 1], 
+          [1, 0], [1, -1], 
+          [0, -1], [-1, -1]
+        ];
+
+        for(let row = 0; row < board.length; row++) {
+          for(let col = 0; col < board[row].length; col++) {
+            if(board[row][col] === 1) {
+              recursive(row, col);
+              count++;
+            }
+          }
+        }
+
+        return count;
+
+        function recursive(row, col) {
+          if(board[row][col] === 0) {
+            return;
+          }
+
+          board[row][col] = 0;
+          
+          for(let [y, x] of moveList) {
+            const nextRow = row + y;
+            const nextCol = col + x;
+
+            if(nextRow < 0 || 
+              nextRow >= board.length ||
+              nextCol < 0 || 
+              nextCol >= board[row].length) continue;
+
+            if(board[nextRow][nextCol] === 1) {
+              recursive(nextRow, nextCol);
+            }
+          }
+        }
+      }
+
+      let arr=[
+        [1, 1, 0, 0, 0, 1, 0], 
+        [0, 1, 1, 0, 1, 1, 0],
+        [0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1, 0, 0],
+        [1, 0, 0, 0, 1, 0, 0],
+        [1, 0, 1, 0, 1, 0, 0]
+      ];
+
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
