@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(n) {
+        let result = 0;
+        const stepList = [1, 2];
+
+        move(0);
+        return result;
+        
+        function move(curPos) {
+          if(curPos === n) result++;
+          else {
+            for(let step of stepList) {
+              const nextPos = curPos + step;
+
+              if(nextPos > n) continue;
+              else move(nextPos);
+            }
+          }
+        }
+      }
+
+      console.log(solution(4));
+      console.log(solution(7));
+
+      function solution2(n) {
+        let result = 0;
+        const stepList = [1, 2];
+        const queue = [...stepList];
+
+        while(queue.length) {
+          const curPos = queue.shift();
+
+          for(let step of stepList) {
+            const nextPos = curPos + step;
+
+            if(nextPos > n) continue;
+            
+            if(nextPos === n) result++;
+            else {
+              queue.push(nextPos);
+            }
+          }
+        }
+
+        return result;
+      }
+
+      console.log(solution2(4));
+      console.log(solution2(7));
+
+      function solutionSample(n) {
+        let answer = 0;
+        const dy = Array.from({ length: n + 1}, () => 0);
+        dy[1] = 1;
+        dy[2] = 2;
+
+        for(let i = 3; i <= n; i++) {
+          dy[i] = dy[i - 1] + dy[i - 2];
+        }
+
+        answer = dy[n];
+
+        return answer;
+      }
+
+      console.log(solutionSample(4));
+      console.log(solutionSample(7));
+
+      function stick(n) {
+        const priceList = [0, 1, 5, 8, 9, 10, 17, 17, 20, 24, 30];
+        let maxList = [priceList[0]];
+
+        for(let totalSize = 1; totalSize <= n; totalSize++) {
+          let curMax = 0;
+
+          for(let lastSize = 1; lastSize <= totalSize; lastSize++) {
+            curMax = Math.max(curMax, priceList[lastSize] + maxList[totalSize - lastSize]);
+          }
+
+          maxList[totalSize] = curMax;
+        }
+
+        return maxList[n];
+      }
+
+      console.log("stick(2): ", stick(2));
+      console.log("stick(3): ", stick(3));
+      console.log("stick(4): ", stick(4));
+      console.log("stick(7): ", stick(7));
+    </script>
+  </body>
+</html>

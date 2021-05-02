@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h1>window.fet() 테스트</h1>
+
+    <div class="controller">
+      <button class="get" onclick="myGetMethod()">Get 요청</button><br/>
+      <button class="Post" onclick="myPostMethod()">Post 요청</button><br/>
+      <button class="Put" onclick="myPutMethod()">Put 요청</button><br/>
+      <button class="Delete" onclick="myDeleteMethod()">Delete 요청</button>
+    </div>
+
+    <main class="m_result">
+      Now Loading...
+    </main>
+
+    <script lang="javascript">      
+      class Api {
+        get BASE_URL() {
+          return "https://jsonplaceholder.typicode.com";
+        }
+
+        constructor() {
+          //
+        }
+
+        // GET 메서드
+        async get(uri, params = {}) {
+          const url = new URL(`${this.BASE_URL}${uri}`);
+          url.search = new URLSearchParams(params);
+          
+          const response = await window.fetch(url, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json;charset=UTF-8"
+            },
+          });
+
+          if(response.ok) {
+            return await response.json();
+          } else {
+            throw new Error(response.statusText);
+          }
+        }
+
+        // POST 메서드
+        async post(uri, payload) {
+          const url = new URL(`${this.BASE_URL}${uri}/`);
+          const response = await window.fetch(url, {
+            method: "POST",
+            headers: {
+              // "Authorization": "TOKEN"
+              "Content-Type": "application/json;charset=UTF-8"
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if(response.ok) {
+            return await response.json();
+          } else {
+            return new Error(response.statusText);
+          }
+        }
+
+        // PUT 메서드
+        async put(uri, id, payload) {
+          const url = new URL(`${this.BASE_URL}${uri}${id}`);
+          const response = await window.fetch(url, {
+            method: "PUT",
+            headers: {
+              // "Authorization": "TOKE",
+              "Content-Type": "application/json;charset=UTF-8",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if(response.ok) {
+            return await response.json();
+          } else {
+            return new Error(response.statusText);
+          }
+        }
+
+        // DELETE 메서드
+        async delete(uri, id) {
+          const url = new URL(`${this.BASE_URL}${uri}${id}`);
+
+          const response = await window.fetch(url, {
+            method: "DELETE",
+            headers: {
+              // "Authorization": "TOKEN",
+              "Content-Type": "application/json;charset=UTF-8"
+            },
+          });
+
+          if(response.ok) {
+            return response;
+          } else {
+            return new Error(response.statusText);
+          }
+        }
+      }
+
+      const api = new Api();
+
+      // GET 버튼 메서드
+      async function myGetMethod() {
+        const params = {
+          id: 1,
+        };
+
+        try {
+          const response = await api.get("/posts", params);
+          console.log("GET결과: ", response);
+        } catch(error) {
+          console.log(error);
+        }
+      }
+
+      // POST 버튼 메서드
+      async function myPostMethod() {
+        const payload = {
+          title: '안녕하세요',
+          body: 'post API 연습중 입니다',
+          userId: 1,
+        };
+
+        try {
+          const response = await api.post("/posts", payload);
+          console.log("POST 결과: ", response);
+        } catch(error) {
+          console.log(error);
+        }
+      }
+
+      // PUT 버튼 메서드
+      async function myPutMethod() {
+        const payload = {
+          id: 1,
+          title: '수정한 제목',
+          body: '수정한 컨텐츠',
+          userId: 1,
+        }
+
+        try {
+          const response = await api.put("/posts/", 1, payload);
+          console.log("PUT 결과: ", response);
+        } catch(error) {
+          console.log(error);
+        }
+      }
+
+      // DELETE 버튼 메서드
+      async function myDeleteMethod() {
+        try {
+          const response = await api.delete("/posts/", 1);
+          console.log("DELETE 결과: ", response);
+        } catch(error) {
+          console.log(error);
+        }
+      }
+    </script>
+  </body>
+</html>
