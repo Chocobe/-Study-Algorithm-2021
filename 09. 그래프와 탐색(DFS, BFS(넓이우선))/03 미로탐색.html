@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  
+  <body>
+    <script>
+      function solution(board) {
+        let result = 0;
+        let temp = [];
+
+        let beforePos = [0, 0];
+        const status = Array.from({length: board.length}, () => {
+          return Array.from({length: board.length}, () => false);
+        });
+
+        const direction = [
+          [0, 1], [0, -1], [1, 0], [-1, 0]
+        ];
+
+        status[0][0] = true;
+        temp.push([0, 0]);
+
+        move([0, 0]);
+
+        return result;
+
+        function move(curPos) {
+          const curY = curPos[0];
+          const curX = curPos[1];
+
+          if(curY === board.length - 1 && curX === board.length - 1) {
+            result++;
+
+            for(let i = 0; i < temp.length; i++) {
+              console.log(temp[i]);
+            }
+
+            console.log("");
+          } else {
+            for(let [y, x] of direction) {
+              const nextY = curY + y;
+              const nextX = curX + x;
+
+              if(nextY < 0 || nextY >= board.length || nextX < 0 || nextX >= board.length) {
+                continue;
+              }
+
+              if(board[nextY][nextX] === 0 && !status[nextY][nextX]) {                
+                status[nextY][nextX] = true;
+                temp.push([nextY, nextX]);
+                
+                move([nextY, nextX]);
+                
+                status[nextY][nextX] = false;
+                temp.pop();
+              }
+            }
+          }
+        }
+      }
+
+      let arr=[
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 1, 0, 0, 0],
+        [1, 1, 0, 1, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 1],
+        [1, 1, 0, 1, 1, 0, 0],
+        [1, 0, 0, 0, 0, 0, 0]
+      ];
+
+      // console.log(solution(arr));
+
+      function solution2(arr) {
+        let result = 0;
+        const direction = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+        const temp = [];
+
+        arr[0][0] = 1;
+        temp.push([0, 0]);
+        move([0, 0]);
+
+        return result;
+
+        function move(curPos) {
+          if(curPos[0] === arr.length - 1 && curPos[1] === arr.length - 1) {
+            result++;
+          } else {
+            for(let [y, x] of direction) {
+              const nextY = curPos[0] + y;
+              const nextX = curPos[1] + x;
+
+              if(nextY < 0 || nextY >= arr.length || nextX < 0 || nextX >= arr.length) {
+                continue;
+              }
+
+              if(arr[nextY][nextX] === 0) {
+                arr[nextY][nextX] = 1;
+                temp.push([nextY, nextX]);
+
+                move([nextY, nextX]);
+
+                arr[nextY][nextX] = 0;
+                temp.pop();
+              }
+            }
+          }
+        }
+      }
+
+      console.log(solution2(arr));
+    </script>
+  </body>
+</html>
