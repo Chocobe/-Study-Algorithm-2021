@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(s, e) {
+        const jumpList = [-1, 1, 5];
+        const status = Array.from({ length: 10001 }, () => -1);
+        const queue = [];
+
+        if(s === e) return 0;
+
+        status[s] = 0;
+        queue.push(s);
+
+        while(queue.length) {
+          const curPos = queue.shift();
+
+          for(let jump of jumpList) {
+            const nextPos = curPos + jump;
+
+            if(nextPos < 1 || nextPos > 10000) continue;
+
+            if(nextPos === e) return status[curPos] + 1;
+
+            status[nextPos] = status[curPos] + 1;
+            queue.push(nextPos);
+          }
+        }
+      }
+
+      console.log("solution(5, 14): ", solution(5, 14));
+      console.log("solution(8, 3): ", solution(8, 3));
+      console.log("");
+
+      function solution2(start, end) {
+        const jumpList = [-1, 1, 5];
+        const status = Array.from({ length: 10001 }, () => -1);
+        const queue = [];
+
+        if(start === end) return 0;
+
+        queue.push(start);
+        status[start] = 0;
+
+        while(queue.length) {
+          const curPos = queue.shift();
+
+          for(let jump of jumpList) {
+            const nextPos = curPos + jump;
+
+            if(nextPos === end) return status[curPos] + 1;
+
+            if(nextPos < 1 || nextPos > 10000) continue;
+
+            if(status[nextPos] === -1) {
+              queue.push(nextPos);
+              status[nextPos] = status[curPos] + 1;
+            }
+          }
+        }
+      }
+
+      console.log("solution2(5, 14): ", solution2(5, 14));
+      console.log("solution2(8, 3): ", solution2(8, 3));
+      console.log("");
+
+      function solutionLevel1(start, end) {
+        const jumpList = [ -1, 1, 5 ];
+        const status = Array.from({ length: 10001 }, () => false);
+        const queue = [];
+        let level = 0;
+
+        if(start === end) return level;
+
+        queue.push(start);
+        status[start] = true;
+
+        while(queue.length) {
+          const curQueueLimit = queue.length;
+
+          for(let i = 0; i < curQueueLimit; i++) {
+            const curPos = queue.shift();
+
+            for(let jump of jumpList) {
+              const nextPos = curPos + jump;
+
+              if(nextPos === end) return level + 1;
+
+              if(nextPos < 1 || nextPos > 10000) continue;
+
+              queue.push(nextPos);
+              status[nextPos] = true;
+            }
+          }
+
+          level++;
+        }
+      }
+
+      console.log("solutionLevel1(5, 14): ", solutionLevel1(5, 14));
+      console.log("solutionLevel1(8, 3): ", solutionLevel1(8, 3));
+    </script>
+  </body>
+</html>
