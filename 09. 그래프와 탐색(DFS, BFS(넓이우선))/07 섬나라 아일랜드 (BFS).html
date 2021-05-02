@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(board) {
+        let count = 0;
+        
+        const moveList = [
+          [-1, 0], [-1, 1], [0, 1], [1, 1],
+          [1, 0], [1, -1], [0, -1], [-1, -1]
+        ];
+
+        const queue = [];
+
+        for(let row = 0; row < board.length; row++) {
+          for(let col = 0; col < board[row].length; col++) {            
+            if(board[row][col] === 1) {
+              board[row][col] = 0;
+              queue.push([row, col]);
+              count++;
+
+              while(queue.length) {
+                const [curRow, curCol] = queue.shift();
+                
+                for(let [y, x] of moveList) {
+                  const nextRow = curRow + y;
+                  const nextCol = curCol + x;
+
+                  if(nextRow < 0 || 
+                    nextRow >= board.length ||
+                    nextCol < 0 ||
+                    nextCol >= board[nextRow].length) continue;
+
+                  if(board[nextRow][nextCol] === 1) {
+                    queue.push([nextRow, nextCol]);
+                    board[nextRow][nextCol] = 0;
+                  }
+                }
+              }
+            }          
+          }
+        }
+
+        return count;
+      }
+
+      let arr=[
+        [1, 1, 0, 0, 0, 1, 0], 
+        [0, 1, 1, 0, 1, 1, 0],
+        [0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1, 0, 0],
+        [1, 0, 0, 0, 1, 0, 0],
+        [1, 0, 1, 0, 1, 0, 0]
+      ];
+
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
