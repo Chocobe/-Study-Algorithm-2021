@@ -30,6 +30,27 @@
 
       let arr=[1, 2, 5];
       console.log(solution(15, arr));
+
+      function solutionSample(m, coinList) {
+        const countList = Array.from({ length: m + 1}, () => Number.MAX_SAFE_INTEGER);
+        countList[0] = 0;
+
+        for(let coinIdx = 0; coinIdx < coinList.length; coinIdx++) {
+          let curMinCount = Number.MAX_SAFE_INTEGER;
+
+          for(let money = coinList[coinIdx]; money <= m; money++) {
+            const remainMoney = money - coinList[coinIdx];
+
+            if(remainMoney < 0) continue;
+            
+            countList[money] = Math.min(countList[money], countList[remainMoney] + 1);
+          }
+        }
+
+        return countList;
+      }
+      
+      console.log("solutionSample(15, arr): ", solutionSample(15, arr));
     </script>
   </body>
 </html>
