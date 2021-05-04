@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+  </head>
+
+  <body>
+    <script>
+      function solution(m, arr) {
+        const scoreList = Array.from({ length: m + 1}, () => 0);
+
+        for(let curTime = 1; curTime <= m; curTime++) {
+          let curMaxScore = 0;
+
+          for(let [score, time] of arr) {
+            const remainTime = curTime - time;
+
+            if(remainTime < 0) continue;
+            else {
+              const curScore = score + scoreList[remainTime];
+              curMaxScore = Math.max(curScore, curMaxScore);
+            }
+          }
+
+          scoreList[curTime] = curMaxScore;
+        }
+
+        return scoreList;
+      }
+
+      let arr=[[10, 5], [25, 12], [15, 8], [6, 3], [7, 4]];
+      console.log(solution(20, arr));
+
+      function solutionSample(m, arr) {
+        const scoreList = Array.from({ length: m + 1 }, () => 0);
+
+        for(let questionIdx = 0; questionIdx < arr.length; questionIdx++) {
+          const questionScore = arr[questionIdx][0];
+          const questionTime = arr[questionIdx][1];
+
+          for(let timeLimit = m; timeLimit >= questionTime; timeLimit--) {
+            console.log(`테스트 (scoreList[${timeLimit}, ${questionTime})]: ${scoreList[timeLimit - questionTime]}`);
+            scoreList[timeLimit] = Math.max(scoreList[timeLimit], scoreList[timeLimit - questionTime] + questionScore);
+          }
+        }
+
+        return scoreList;
+      }
+
+      console.log("solutionSample(20, arr): ", solutionSample(20, arr));
+    </script>
+  </body>
+</html>
