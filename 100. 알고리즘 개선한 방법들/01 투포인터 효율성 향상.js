@@ -84,11 +84,63 @@ function solution(gems) {
   return answer;
 }
 
-console.log(solution(gems1));
-console.log("");
-console.log(solution(gems2));
-console.log("");
-console.log(solution(gems3));
-console.log("");
-console.log(solution(gems4));
-console.log("");
+// console.log(solution(gems1));
+// console.log("");
+// console.log(solution(gems2));
+// console.log("");
+// console.log(solution(gems3));
+// console.log("");
+// console.log(solution(gems4));
+// console.log("");
+
+function solution2(gems) {
+  let answer = [];
+  
+  const gemsArrLength = gems.length;
+  let answerCount = gemsArrLength;
+  
+  const gemsSet = new Set(gems);
+  const gemsSetLength = gemsSet.size;
+  const curMap = new Map();
+  
+  let lhs = 0;
+  let rhs = -1;
+  
+  while(rhs < gemsArrLength && (rhs >= lhs || rhs === -1)) {
+      const curMapLength = curMap.size;
+      
+      if(curMap.size < gemsSetLength) {
+          rhs++;
+          
+          const rhsGem = gems[rhs];
+          
+          if(curMap.has(rhsGem)) {
+              curMap.set(rhsGem, curMap.get(rhsGem) + 1);
+          } else {
+              curMap.set(rhsGem, 1);
+          }
+      } else if(curMapLength === gemsSetLength) {
+          if(curMapLength < answerCount) {
+              answerCount = curMapLength;
+              answer = [lhs, rhs];
+          }
+          
+          const lhsGem = gems[lhs];
+          
+          if(curMap.get(lhsGem) === 1) {
+              curMap.delete(lhsGem);
+          } else {
+              curMap.set(lhsGem, curMap.get(lhsGem) - 1);
+          }
+          
+          lhs++;
+      }
+  }
+  
+  return [answer[0] + 1, answer[1] + 1];
+}
+
+console.log(solution2(gems1));
+console.log(solution2(gems2));
+console.log(solution2(gems3));
+console.log(solution2(gems4));
